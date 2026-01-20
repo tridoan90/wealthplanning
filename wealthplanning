@@ -1,0 +1,1544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wealth Management Simulator | Mô Phỏng Quản Lý Tài Chính</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Crimson+Pro:wght@600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --red: #dc2626;
+            --red-dark: #991b1b;
+            --red-light: #fecaca;
+            --black: #0f172a;
+            --grey-dark: #334155;
+            --grey: #64748b;
+            --grey-light: #cbd5e1;
+            --bg: #f8fafc;
+            --white: #ffffff;
+            --green: #16a34a;
+            --blue: #2563eb;
+            --amber: #f59e0b;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            color: var(--black);
+            line-height: 1.5;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--black) 0%, var(--grey-dark) 100%);
+            padding: 2rem 1.5rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .header h1 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 2rem;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            color: var(--grey-light);
+            font-size: 0.95rem;
+        }
+
+        .lang-toggle {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--red);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.875rem;
+            transition: all 0.3s;
+            z-index: 10;
+        }
+
+        .lang-toggle:hover { background: var(--red-dark); }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .step {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--grey-light);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--red);
+        }
+
+        .step-number {
+            background: var(--red);
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-family: 'Crimson Pro', serif;
+        }
+
+        .step-title {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.5rem;
+            color: var(--black);
+        }
+
+        .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+
+        .input-group {
+            margin-bottom: 1rem;
+        }
+
+        .input-label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--grey-dark);
+            margin-bottom: 0.4rem;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-prefix {
+            position: absolute;
+            left: 0.875rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--grey);
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 0.75rem 0.875rem;
+            border: 1px solid var(--grey-light);
+            border-radius: 8px;
+            font-size: 0.9375rem;
+            font-family: 'DM Sans', sans-serif;
+            background: white;
+            transition: all 0.2s;
+        }
+
+        input[type="number"] { padding-left: 2.5rem; }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--red);
+            box-shadow: 0 0 0 3px var(--red-light);
+        }
+
+        .summary-box {
+            background: linear-gradient(135deg, var(--grey-dark) 0%, var(--black) 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-top: 1.5rem;
+        }
+
+        .summary-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .summary-item {
+            text-align: center;
+        }
+
+        .summary-label {
+            font-size: 0.8125rem;
+            opacity: 0.7;
+            margin-bottom: 0.25rem;
+        }
+
+        .summary-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            font-family: 'Crimson Pro', serif;
+        }
+
+        .tier-selector {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tier-option {
+            flex: 1;
+            padding: 1rem;
+            border: 2px solid var(--grey-light);
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: white;
+        }
+
+        .tier-option:hover { border-color: var(--red); }
+        .tier-option.active {
+            border-color: var(--red);
+            background: var(--red-light);
+        }
+
+        .tier-label {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .tier-desc {
+            font-size: 0.75rem;
+            color: var(--grey);
+        }
+
+        .allocation-item {
+            background: var(--bg);
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--grey-light);
+            margin-bottom: 0.75rem;
+        }
+
+        .allocation-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .allocation-name {
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .allocation-yield {
+            font-size: 0.75rem;
+            color: var(--grey);
+            background: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+        }
+
+        .allocation-slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: var(--grey-light);
+            outline: none;
+        }
+
+        .allocation-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--red);
+            cursor: pointer;
+        }
+
+        .allocation-slider::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--red);
+            cursor: pointer;
+            border: none;
+        }
+
+        .allocation-value {
+            text-align: right;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--red);
+            margin-top: 0.25rem;
+        }
+
+        .goal-item {
+            background: var(--bg);
+            padding: 1.25rem;
+            border-radius: 10px;
+            border: 1px solid var(--grey-light);
+            margin-bottom: 1rem;
+        }
+
+        .goal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .goal-name {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .goal-status {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8125rem;
+            font-weight: 600;
+        }
+
+        .status-possible { background: #d1fae5; color: var(--green); }
+        .status-impossible { background: var(--red-light); color: var(--red); }
+
+        .goal-fields {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 0.75rem;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, var(--red), var(--red-dark));
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 1rem;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(220, 38, 38, 0.3);
+        }
+
+        .results {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .result-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid var(--grey-light);
+        }
+
+        .result-label {
+            font-size: 0.8125rem;
+            color: var(--grey);
+            margin-bottom: 0.5rem;
+        }
+
+        .result-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            font-family: 'Crimson Pro', serif;
+        }
+
+        .chart-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--grey-light);
+        }
+
+        .chart-wrapper {
+            height: 400px;
+            margin-top: 1rem;
+        }
+
+        .hidden { display: none; }
+
+        .vi { display: none; }
+        body.lang-vi .en { display: none; }
+        body.lang-vi .vi { display: block; }
+
+        @media (max-width: 968px) {
+            .grid2, .grid3, .summary-grid, .results { grid-template-columns: 1fr; }
+            .goal-fields { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body class="lang-en">
+    <div class="header">
+        <button class="lang-toggle" onclick="toggleLang()">
+            <span class="en">🇻🇳 Tiếng Việt</span>
+            <span class="vi">🇬🇧 English</span>
+        </button>
+        <h1>
+            <span class="en">Wealth Management Simulator</span>
+            <span class="vi">Mô Phỏng Quản Lý Tài Chính</span>
+        </h1>
+        <p>
+            <span class="en">Professional financial planning with Vietnam market data</span>
+            <span class="vi">Lập kế hoạch tài chính chuyên nghiệp với dữ liệu thị trường Việt Nam</span>
+        </p>
+    </div>
+
+    <div class="container">
+        <!-- STEP 1: ASSETS & LIABILITIES -->
+        <div class="step">
+            <div class="step-header">
+                <div class="step-number">1</div>
+                <h2 class="step-title">
+                    <span class="en">Assets & Liabilities</span>
+                    <span class="vi">Tài Sản & Nợ</span>
+                </h2>
+            </div>
+
+            <div class="grid2">
+                <div>
+                    <h3 style="margin-bottom: 1rem; color: var(--grey-dark);">
+                        <span class="en">💰 Assets</span>
+                        <span class="vi">💰 Tài Sản</span>
+                    </h3>
+                    
+                    <div class="input-group">
+                        <label class="input-label">
+                            <span class="en">Cash</span>
+                            <span class="vi">Tiền mặt</span>
+                        </label>
+                        <div class="input-wrapper">
+                            <span class="input-prefix">₫</span>
+                            <input type="number" id="cash" value="100000000" step="1000000">
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label">
+                            <span class="en">Bank Account Balance</span>
+                            <span class="vi">Số dư tài khoản ngân hàng</span>
+                        </label>
+                        <div class="input-wrapper">
+                            <span class="input-prefix">₫</span>
+                            <input type="number" id="bank" value="200000000" step="10000000">
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label">
+                            <span class="en">Real Estate</span>
+                            <span class="vi">Bất động sản</span>
+                        </label>
+                        <div class="input-wrapper">
+                            <span class="input-prefix">₫</span>
+                            <input type="number" id="realestate" value="1000000000" step="100000000">
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 style="margin-bottom: 1rem; color: var(--grey-dark);">
+                        <span class="en">💳 Liabilities / Debt</span>
+                        <span class="vi">💳 Nợ</span>
+                    </h3>
+                    
+                    <div class="input-group">
+                        <label class="input-label">
+                            <span class="en">Total Current Debt</span>
+                            <span class="vi">Tổng dư nợ hiện tại</span>
+                        </label>
+                        <div class="input-wrapper">
+                            <span class="input-prefix">₫</span>
+                            <input type="number" id="total-debt" value="700000000" step="10000000">
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label">
+                            <span class="en">Debt Interest Rate (% p.a.)</span>
+                            <span class="vi">Lãi suất nợ (%/năm)</span>
+                        </label>
+                        <input type="number" id="debt-rate" value="8.5" step="0.1" min="0" max="30">
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label">
+                            <span class="en">Remaining Term (years)</span>
+                            <span class="vi">Thời hạn còn lại (năm)</span>
+                        </label>
+                        <input type="number" id="debt-term" value="15" min="0" max="30">
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label" style="color: var(--grey);">
+                            <span class="en">Monthly Payment (Auto-calculated)</span>
+                            <span class="vi">Trả nợ/tháng (Tự động)</span>
+                        </label>
+                        <div style="padding: 0.75rem; background: var(--bg); border-radius: 8px; font-weight: 600; color: var(--red);" id="auto-debt-payment">
+                            0 ₫
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="summary-box">
+                <div class="summary-title">
+                    <span class="en">📊 Financial Health Summary</span>
+                    <span class="vi">📊 Tổng Quan Tình Hình Tài Chính</span>
+                </div>
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <div class="summary-label">
+                            <span class="en">Total Assets</span>
+                            <span class="vi">Tổng tài sản</span>
+                        </div>
+                        <div class="summary-value" id="total-assets">0</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-label">
+                            <span class="en">Net Worth</span>
+                            <span class="vi">Tài sản ròng</span>
+                        </div>
+                        <div class="summary-value" id="net-worth">0</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-label">
+                            <span class="en">Liquid Assets</span>
+                            <span class="vi">Tài sản thanh khoản</span>
+                        </div>
+                        <div class="summary-value" id="liquid-assets">0</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 2: INCOME & EXPENSES -->
+        <div class="step">
+            <div class="step-header">
+                <div class="step-number">2</div>
+                <h2 class="step-title">
+                    <span class="en">Income & Expenses</span>
+                    <span class="vi">Thu Nhập & Chi Phí</span>
+                </h2>
+            </div>
+
+            <div class="grid2">
+                <div>
+                    <h3 style="margin-bottom: 1rem; color: var(--grey-dark);">
+                        <span class="en">💵 Income (Monthly)</span>
+                        <span class="vi">💵 Thu Nhập (Tháng)</span>
+                    </h3>
+                    
+                    <div class="input-group">
+                        <label class="input-label">
+                            <span class="en">Salary (Net)</span>
+                            <span class="vi">Lương (sau thuế)</span>
+                        </label>
+                        <div class="input-wrapper">
+                            <span class="input-prefix">₫</span>
+                            <input type="number" id="salary" value="95000000" step="1000000">
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label">
+                            <span class="en">Other Income (Net)</span>
+                            <span class="vi">Thu nhập khác</span>
+                        </label>
+                        <div class="input-wrapper">
+                            <span class="input-prefix">₫</span>
+                            <input type="number" id="other-income" value="50000000" step="1000000">
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 style="margin-bottom: 1rem; color: var(--grey-dark);">
+                        <span class="en">💸 Expenses (Monthly)</span>
+                        <span class="vi">💸 Chi Phí (Tháng)</span>
+                    </h3>
+                    
+                    <div class="input-group">
+                        <label class="input-label">
+                            <span class="en">Family Spending</span>
+                            <span class="vi">Chi phí gia đình</span>
+                        </label>
+                        <div class="input-wrapper">
+                            <span class="input-prefix">₫</span>
+                            <input type="number" id="family" value="25000000" step="1000000">
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label">
+                            <span class="en">Children's Education</span>
+                            <span class="vi">Học hành con cái</span>
+                        </label>
+                        <div class="input-wrapper">
+                            <span class="input-prefix">₫</span>
+                            <input type="number" id="education-exp" value="8000000" step="1000000">
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label">
+                            <span class="en">Insurance</span>
+                            <span class="vi">Bảo hiểm</span>
+                        </label>
+                        <div class="input-wrapper">
+                            <span class="input-prefix">₫</span>
+                            <input type="number" id="insurance" value="10000000" step="1000000">
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label">
+                            <span class="en">Other (Travel, Entertainment)</span>
+                            <span class="vi">Chi phí khác (Du lịch, giải trí)</span>
+                        </label>
+                        <div class="input-wrapper">
+                            <span class="input-prefix">₫</span>
+                            <input type="number" id="other-exp" value="5000000" step="1000000">
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label" style="color: var(--grey);">
+                            <span class="en">Debt Payment (Auto-calculated)</span>
+                            <span class="vi">Trả nợ (Tự động)</span>
+                        </label>
+                        <div style="padding: 0.75rem; background: var(--bg); border-radius: 8px; font-weight: 600; color: var(--grey-dark);" id="expense-debt-payment">
+                            0 ₫
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="summary-box">
+                <div class="summary-title">
+                    <span class="en">📊 Cash Flow Summary</span>
+                    <span class="vi">📊 Tổng Quan Dòng Tiền</span>
+                </div>
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <div class="summary-label">
+                            <span class="en">Total Income (Annual)</span>
+                            <span class="vi">Tổng thu nhập (Năm)</span>
+                        </div>
+                        <div class="summary-value" id="total-income">0</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-label">
+                            <span class="en">Total Expenses (Annual)</span>
+                            <span class="vi">Tổng chi phí (Năm)</span>
+                        </div>
+                        <div class="summary-value" id="total-expenses">0</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-label">
+                            <span class="en">Net Cash Flow (Annual)</span>
+                            <span class="vi">Dòng tiền ròng (Năm)</span>
+                        </div>
+                        <div class="summary-value" id="cash-flow">0</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- INVESTMENT ALLOCATION -->
+        <div class="step">
+            <div class="step-header">
+                <div class="step-number">📊</div>
+                <h2 class="step-title">
+                    <span class="en">Investment Portfolio Allocation</span>
+                    <span class="vi">Phân Bổ Danh Mục Đầu Tư</span>
+                </h2>
+            </div>
+
+            <div class="grid2" style="margin-bottom: 1.5rem;">
+                <div>
+                    <label class="input-label">
+                        <span class="en">Investor Tier</span>
+                        <span class="vi">Hạng Nhà Đầu Tư</span>
+                    </label>
+                    <div class="tier-selector">
+                        <div class="tier-option active" onclick="selectTier('retail')" id="tier-retail">
+                            <div class="tier-label">
+                                <span class="en">Retail</span>
+                                <span class="vi">Cá Nhân</span>
+                            </div>
+                        </div>
+                        <div class="tier-option" onclick="selectTier('professional')" id="tier-prof">
+                            <div class="tier-label">
+                                <span class="en">Professional</span>
+                                <span class="vi">Chuyên Nghiệp</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <label class="input-label">
+                        <span class="en">Risk Profile / Tolerance</span>
+                        <span class="vi">Mức Độ Rủi Ro Chấp Nhận</span>
+                    </label>
+                    <select id="risk-profile" onchange="applyRecommendedAllocation()">
+                        <option value="highly-conservative">
+                            <span class="en">Highly Conservative (Rất thận trọng)</span>
+                        </option>
+                        <option value="balanced" selected>
+                            <span class="en">Balanced (Cân bằng)</span>
+                        </option>
+                        <option value="growth">
+                            <span class="en">Growth (Tăng trưởng)</span>
+                        </option>
+                        <option value="adventurous">
+                            <span class="en">Adventurous (Mạo hiểm)</span>
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 1rem; display: flex; gap: 1rem; justify-content: space-between; align-items: center;">
+                <button class="btn" style="flex: 1; margin: 0; padding: 0.75rem;" onclick="applyRecommendedAllocation()">
+                    <span class="en">📋 Apply Recommended Allocation</span>
+                    <span class="vi">📋 Áp Dụng Phân Bổ Đề Xuất</span>
+                </button>
+                <button class="btn" style="flex: 1; margin: 0; padding: 0.75rem; background: linear-gradient(135deg, var(--grey-dark), var(--black));" onclick="resetAllocation()">
+                    <span class="en">🔄 Reset</span>
+                    <span class="vi">🔄 Đặt Lại</span>
+                </button>
+            </div>
+
+            <div id="retail-alloc">
+                <div class="allocation-item">
+                    <div class="allocation-header">
+                        <span class="allocation-name">
+                            <span class="en">💵 Liquidity & Capital Preservation</span>
+                            <span class="vi">💵 Thanh Khoản & Bảo Toàn Vốn</span>
+                        </span>
+                        <span class="allocation-yield">5.5-7.2% p.a.</span>
+                    </div>
+                    <div style="font-size: 0.75rem; color: var(--grey); margin-bottom: 0.5rem;">
+                        <span class="en">Money Market, Short-term Fixed Income</span>
+                        <span class="vi">Quỹ Thị Trường Tiền Tệ, Trái Phiếu Ngắn Hạn</span>
+                    </div>
+                    <input type="range" class="allocation-slider" id="alloc-liquidity" min="0" max="100" value="20" oninput="updateAlloc()">
+                    <div class="allocation-value"><span id="val-liquidity">20</span>%</div>
+                </div>
+
+                <div class="allocation-item">
+                    <div class="allocation-header">
+                        <span class="allocation-name">
+                            <span class="en">📜 Income & Stability</span>
+                            <span class="vi">📜 Thu Nhập & Ổn Định</span>
+                        </span>
+                        <span class="allocation-yield">5-7% p.a.</span>
+                    </div>
+                    <div style="font-size: 0.75rem; color: var(--grey); margin-bottom: 0.5rem;">
+                        <span class="en">Fixed Income, Balanced Funds</span>
+                        <span class="vi">Quỹ Trái Phiếu, Quỹ Cân Bằng</span>
+                    </div>
+                    <input type="range" class="allocation-slider" id="alloc-income" min="0" max="100" value="30" oninput="updateAlloc()">
+                    <div class="allocation-value"><span id="val-income">30</span>%</div>
+                </div>
+
+                <div class="allocation-item">
+                    <div class="allocation-header">
+                        <span class="allocation-name">
+                            <span class="en">📈 Growth (Public Markets)</span>
+                            <span class="vi">📈 Tăng Trưởng (Thị Trường Công)</span>
+                        </span>
+                        <span class="allocation-yield">8-15% p.a.</span>
+                    </div>
+                    <div style="font-size: 0.75rem; color: var(--grey); margin-bottom: 0.5rem;">
+                        <span class="en">Equity Funds, Broad Market ETF, Sectoral/Smart-Beta ETF</span>
+                        <span class="vi">Quỹ Cổ Phiếu, ETF Thị Trường, ETF Ngành/Smart-Beta</span>
+                    </div>
+                    <input type="range" class="allocation-slider" id="alloc-growth" min="0" max="100" value="35" oninput="updateAlloc()">
+                    <div class="allocation-value"><span id="val-growth">35</span>%</div>
+                </div>
+
+                <div class="allocation-item">
+                    <div class="allocation-header">
+                        <span class="allocation-name">
+                            <span class="en">🛡️ Retirement & Protection</span>
+                            <span class="vi">🛡️ Hưu Trí & Bảo Vệ</span>
+                        </span>
+                        <span class="allocation-yield">3-5% p.a.</span>
+                    </div>
+                    <div style="font-size: 0.75rem; color: var(--grey); margin-bottom: 0.5rem;">
+                        <span class="en">LTSP/Retirement Plan, Insurance-linked Products</span>
+                        <span class="vi">Kế Hoạch Hưu Trí, Sản Phẩm Liên Kết Bảo Hiểm</span>
+                    </div>
+                    <input type="range" class="allocation-slider" id="alloc-protection" min="0" max="100" value="15" oninput="updateAlloc()">
+                    <div class="allocation-value"><span id="val-protection">15</span>%</div>
+                </div>
+            </div>
+
+            <div id="prof-alloc" class="hidden">
+                <div class="allocation-item">
+                    <div class="allocation-header">
+                        <span class="allocation-name">
+                            <span class="en">🏢 Alternatives (Private Markets)</span>
+                            <span class="vi">🏢 Đầu Tư Thay Thế (Thị Trường Riêng)</span>
+                        </span>
+                        <span class="allocation-yield">8-14% p.a.</span>
+                    </div>
+                    <div style="font-size: 0.75rem; color: var(--grey); margin-bottom: 0.5rem;">
+                        <span class="en">IMA, Hedge Fund, Private RE, Infrastructure, Thematic PE</span>
+                        <span class="vi">IMA, Quỹ Phòng Hộ, BĐS Riêng, Hạ Tầng, PE Chủ Đề</span>
+                    </div>
+                    <input type="range" class="allocation-slider" id="alloc-alternatives" min="0" max="100" value="0" oninput="updateAlloc()">
+                    <div class="allocation-value"><span id="val-alternatives">0</span>%</div>
+                </div>
+
+                <div class="allocation-item">
+                    <div class="allocation-header">
+                        <span class="allocation-name">
+                            <span class="en">🎲 Opportunistic / Diversifiers</span>
+                            <span class="vi">🎲 Cơ Hội / Đa Dạng Hóa</span>
+                        </span>
+                        <span class="allocation-yield">5-12% p.a.</span>
+                    </div>
+                    <div style="font-size: 0.75rem; color: var(--grey); margin-bottom: 0.5rem;">
+                        <span class="en">Co-investments, Digital Assets, Precious Metals, FX Mandates</span>
+                        <span class="vi">Đồng Đầu Tư, Tài Sản Số, Kim Loại Quý, Ngoại Hối</span>
+                    </div>
+                    <input type="range" class="allocation-slider" id="alloc-opportunistic" min="0" max="100" value="0" oninput="updateAlloc()">
+                    <div class="allocation-value"><span id="val-opportunistic">0</span>%</div>
+                </div>
+            </div>
+
+            <div class="summary-box" style="margin-top: 1rem;">
+                <div class="summary-title">
+                    <span class="en">📊 Portfolio Summary & Risk Metrics</span>
+                    <span class="vi">📊 Tổng Quan Danh Mục & Rủi Ro</span>
+                </div>
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <div class="summary-label">
+                            <span class="en">Total Allocation</span>
+                            <span class="vi">Tổng phân bổ</span>
+                        </div>
+                        <div class="summary-value" id="total-alloc-display" style="font-size: 1.5rem;">100%</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-label">
+                            <span class="en">Expected Yield</span>
+                            <span class="vi">Lợi suất kỳ vọng</span>
+                        </div>
+                        <div class="summary-value" id="blended-yield-display">6.8%</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-label">
+                            <span class="en">Portfolio Risk</span>
+                            <span class="vi">Rủi ro danh mục</span>
+                        </div>
+                        <div class="summary-value" id="portfolio-risk">Medium</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-label">
+                            <span class="en">Volatility Est.</span>
+                            <span class="vi">Biến động ước tính</span>
+                        </div>
+                        <div class="summary-value" id="volatility">8.5%</div>
+                    </div>
+                </div>
+                <div id="allocation-warning" class="hidden" style="margin-top: 1rem; padding: 0.75rem; background: rgba(220, 38, 38, 0.1); border-radius: 6px; text-align: center; color: var(--red); font-weight: 600;">
+                    <span class="en">⚠️ Total allocation must equal 100%</span>
+                    <span class="vi">⚠️ Tổng phân bổ phải bằng 100%</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 3: GOALS -->
+        <div class="step">
+            <div class="step-header">
+                <div class="step-number">3</div>
+                <h2 class="step-title">
+                    <span class="en">Life Goals & Financial Planning</span>
+                    <span class="vi">Mục Tiêu Cuộc Sống & Kế Hoạch Tài Chính</span>
+                </h2>
+            </div>
+
+            <div class="grid2" style="margin-bottom: 1.5rem;">
+                <div class="input-group">
+                    <label class="input-label">
+                        <span class="en">Start Age / Current Age</span>
+                        <span class="vi">Tuổi bắt đầu / Tuổi hiện tại</span>
+                    </label>
+                    <input type="number" id="start-age" value="45" min="18" max="100">
+                </div>
+                <div class="input-group">
+                    <label class="input-label">
+                        <span class="en">Expected Annual Return (%)</span>
+                        <span class="vi">Lợi nhuận kỳ vọng hàng năm (%)</span>
+                    </label>
+                    <input type="number" id="expected-return" value="15" min="0" max="30" step="0.1">
+                </div>
+            </div>
+
+            <div id="goals-container">
+                <!-- Goal 1 -->
+                <div class="goal-item">
+                    <div class="goal-header">
+                        <span class="goal-name">
+                            <span class="en">🏠 Goal 1: Home Buying</span>
+                            <span class="vi">🏠 Mục tiêu 1: Mua Nhà</span>
+                        </span>
+                        <span class="goal-status status-possible" id="status-1">
+                            <span class="en">Calculating...</span>
+                            <span class="vi">Đang tính...</span>
+                        </span>
+                    </div>
+                    <div class="goal-fields">
+                        <div class="input-group">
+                            <label class="input-label">
+                                <span class="en">Target Age</span>
+                                <span class="vi">Tuổi đạt được</span>
+                            </label>
+                            <input type="number" id="goal1-age" value="55" min="18" max="100">
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label">
+                                <span class="en">Required Amount (VND million)</span>
+                                <span class="vi">Số tiền cần (triệu VND)</span>
+                            </label>
+                            <div class="input-wrapper">
+                                <span class="input-prefix">₫</span>
+                                <input type="number" id="goal1-amount" value="3000" step="10">
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label">
+                                <span class="en">Custom Name (Optional)</span>
+                                <span class="vi">Tên tùy chỉnh</span>
+                            </label>
+                            <input type="text" id="goal1-name" placeholder="Home Buying">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Goal 2 -->
+                <div class="goal-item">
+                    <div class="goal-header">
+                        <span class="goal-name">
+                            <span class="en">🎓 Goal 2: Children's Education</span>
+                            <span class="vi">🎓 Mục tiêu 2: Giáo Dục Con Cái</span>
+                        </span>
+                        <span class="goal-status status-possible" id="status-2">
+                            <span class="en">Calculating...</span>
+                            <span class="vi">Đang tính...</span>
+                        </span>
+                    </div>
+                    <div class="goal-fields">
+                        <div class="input-group">
+                            <label class="input-label">
+                                <span class="en">Target Age</span>
+                                <span class="vi">Tuổi đạt được</span>
+                            </label>
+                            <input type="number" id="goal2-age" value="60" min="18" max="100">
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label">
+                                <span class="en">Required Amount (VND million)</span>
+                                <span class="vi">Số tiền cần (triệu VND)</span>
+                            </label>
+                            <div class="input-wrapper">
+                                <span class="input-prefix">₫</span>
+                                <input type="number" id="goal2-amount" value="1000" step="10">
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label">
+                                <span class="en">Custom Name (Optional)</span>
+                                <span class="vi">Tên tùy chỉnh</span>
+                            </label>
+                            <input type="text" id="goal2-name" placeholder="Children's Education">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Goal 3: Retirement -->
+                <div class="goal-item" style="border: 2px solid var(--amber);">
+                    <div class="goal-header">
+                        <span class="goal-name">
+                            <span class="en">🌴 Goal 3: Retirement</span>
+                            <span class="vi">🌴 Mục tiêu 3: Nghỉ Hưu</span>
+                        </span>
+                        <span class="goal-status status-possible" id="status-3">
+                            <span class="en">Calculating...</span>
+                            <span class="vi">Đang tính...</span>
+                        </span>
+                    </div>
+                    <div class="goal-fields">
+                        <div class="input-group">
+                            <label class="input-label">
+                                <span class="en">Target Age</span>
+                                <span class="vi">Tuổi đạt được</span>
+                            </label>
+                            <input type="number" id="goal3-age" value="65" min="18" max="100">
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label" style="color: var(--amber);">
+                                <span class="en">Required Amount (Auto: 25x Annual Expenses)</span>
+                                <span class="vi">Số tiền cần (Tự động: 25x Chi phí năm)</span>
+                            </label>
+                            <div style="padding: 0.75rem; background: rgba(245, 158, 11, 0.1); border-radius: 8px; font-weight: 600; color: var(--amber); border: 1px solid var(--amber);" id="auto-retirement-amount">
+                                0 triệu ₫
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label">
+                                <span class="en">Custom Name (Optional)</span>
+                                <span class="vi">Tên tùy chỉnh</span>
+                            </label>
+                            <input type="text" id="goal3-name" placeholder="Retirement">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn" onclick="calculatePlan()">
+                <span class="en">📊 Calculate Complete Financial Plan</span>
+                <span class="vi">📊 Tính Toán Kế Hoạch Tài Chính Hoàn Chỉnh</span>
+            </button>
+        </div>
+
+        <!-- RESULTS -->
+        <div class="step hidden" id="results-section">
+            <div class="step-header">
+                <div class="step-number">📈</div>
+                <h2 class="step-title">
+                    <span class="en">Financial Plan Results</span>
+                    <span class="vi">Kết Quả Kế Hoạch Tài Chính</span>
+                </h2>
+            </div>
+
+            <div class="results">
+                <div class="result-card">
+                    <div class="result-label">
+                        <span class="en">One-time Investment</span>
+                        <span class="vi">Đầu tư 1 lần</span>
+                    </div>
+                    <div class="result-value" id="onetime-invest">0</div>
+                </div>
+                <div class="result-card">
+                    <div class="result-label">
+                        <span class="en">Monthly Investment</span>
+                        <span class="vi">Đầu tư định kỳ/tháng</span>
+                    </div>
+                    <div class="result-value" id="monthly-invest">0</div>
+                </div>
+                <div class="result-card">
+                    <div class="result-label">
+                        <span class="en">Goals Achievable</span>
+                        <span class="vi">Mục tiêu đạt được</span>
+                    </div>
+                    <div class="result-value" id="goals-achievable">0/3</div>
+                </div>
+                <div class="result-card">
+                    <div class="result-label">
+                        <span class="en">Overall Status</span>
+                        <span class="vi">Trạng thái tổng quát</span>
+                    </div>
+                    <div class="result-value" id="overall-status">--</div>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <h3 style="margin-bottom: 1rem;">
+                    <span class="en">📈 Wealth Projection & Goal Milestones</span>
+                    <span class="vi">📈 Dự Báo Tài Sản & Mốc Mục Tiêu</span>
+                </h3>
+                <div class="chart-wrapper">
+                    <canvas id="chart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentLang = 'en';
+        let currentTier = 'retail';
+        let chart = null;
+        let isAdjusting = false;
+
+        // Updated yields for new taxonomy
+        const yields = {
+            liquidity: 6.35,      // Money Market, Short-term Fixed Income
+            income: 6.0,          // Fixed Income, Balanced Funds
+            growth: 11.5,         // Equity Funds, ETFs
+            protection: 4.0,      // Retirement, Insurance
+            alternatives: 11.0,   // IMA, Hedge, Private RE, Infra, PE
+            opportunistic: 8.5    // Co-investments, Digital Assets, Precious Metals, FX
+        };
+
+        const volatility = {
+            liquidity: 2,
+            income: 5,
+            growth: 14,
+            protection: 2,
+            alternatives: 13,
+            opportunistic: 20
+        };
+
+        const riskProfiles = {
+            'highly-conservative': {
+                retail: { liquidity: 50, income: 30, growth: 5, protection: 15 },
+                professional: { liquidity: 35, income: 30, growth: 10, protection: 15, alternatives: 10, opportunistic: 0 }
+            },
+            'balanced': {
+                retail: { liquidity: 20, income: 30, growth: 35, protection: 15 },
+                professional: { liquidity: 15, income: 25, growth: 30, protection: 10, alternatives: 15, opportunistic: 5 }
+            },
+            'growth': {
+                retail: { liquidity: 10, income: 20, growth: 55, protection: 15 },
+                professional: { liquidity: 5, income: 15, growth: 40, protection: 10, alternatives: 25, opportunistic: 5 }
+            },
+            'adventurous': {
+                retail: { liquidity: 5, income: 10, growth: 70, protection: 15 },
+                professional: { liquidity: 5, income: 10, growth: 35, protection: 10, alternatives: 30, opportunistic: 10 }
+            }
+        };
+
+        function toggleLang() {
+            currentLang = currentLang === 'en' ? 'vi' : 'en';
+            document.body.className = 'lang-' + currentLang;
+            updateSummary();
+            updateAlloc();
+            if (chart) calculatePlan();
+        }
+
+        function selectTier(tier) {
+            currentTier = tier;
+            document.getElementById('tier-retail').classList.toggle('active', tier === 'retail');
+            document.getElementById('tier-prof').classList.toggle('active', tier === 'professional');
+            document.getElementById('prof-alloc').classList.toggle('hidden', tier === 'retail');
+            
+            if (tier === 'retail') {
+                ['alternatives', 'opportunistic'].forEach(id => {
+                    const elem = document.getElementById('alloc-' + id);
+                    if (elem) {
+                        elem.value = 0;
+                        document.getElementById('val-' + id).textContent = 0;
+                    }
+                });
+            }
+            applyRecommendedAllocation();
+        }
+
+        function applyRecommendedAllocation() {
+            const risk = document.getElementById('risk-profile').value;
+            const profile = riskProfiles[risk][currentTier];
+            
+            isAdjusting = true;
+            Object.keys(profile).forEach(key => {
+                const element = document.getElementById('alloc-' + key);
+                if (element) {
+                    element.value = profile[key];
+                    document.getElementById('val-' + key).textContent = profile[key];
+                }
+            });
+            isAdjusting = false;
+            updateAlloc();
+        }
+
+        function resetAllocation() {
+            const ids = ['liquidity', 'income', 'growth', 'protection'];
+            if (currentTier === 'professional') ids.push('alternatives', 'opportunistic');
+            
+            isAdjusting = true;
+            const equal = Math.floor(100 / ids.length);
+            let remaining = 100 - (equal * ids.length);
+            
+            ids.forEach((id, index) => {
+                const val = equal + (index === 0 ? remaining : 0);
+                document.getElementById('alloc-' + id).value = val;
+                document.getElementById('val-' + id).textContent = val;
+            });
+            isAdjusting = false;
+            updateAlloc();
+        }
+
+        function updateAlloc() {
+            if (isAdjusting) return;
+            
+            const ids = ['liquidity', 'income', 'growth', 'protection'];
+            if (currentTier === 'professional') ids.push('alternatives', 'opportunistic');
+            
+            let total = 0, weighted = 0, volatilityWeighted = 0;
+            const values = {};
+            
+            ids.forEach(id => {
+                const val = parseInt(document.getElementById('alloc-' + id).value) || 0;
+                values[id] = val;
+                total += val;
+                weighted += val * yields[id];
+                volatilityWeighted += val * volatility[id];
+            });
+            
+            // Auto-adjust to 100% if total exceeds
+            if (total > 100) {
+                isAdjusting = true;
+                const scale = 100 / total;
+                let adjusted = 0;
+                
+                ids.forEach((id, index) => {
+                    if (index < ids.length - 1) {
+                        const newVal = Math.floor(values[id] * scale);
+                        document.getElementById('alloc-' + id).value = newVal;
+                        document.getElementById('val-' + id).textContent = newVal;
+                        adjusted += newVal;
+                    }
+                });
+                
+                // Last item gets remainder
+                const lastId = ids[ids.length - 1];
+                const lastVal = 100 - adjusted;
+                document.getElementById('alloc-' + lastId).value = lastVal;
+                document.getElementById('val-' + lastId).textContent = lastVal;
+                
+                isAdjusting = false;
+                updateAlloc();
+                return;
+            }
+            
+            const avgYield = total > 0 ? weighted / total : 0;
+            const avgVolatility = total > 0 ? volatilityWeighted / total : 0;
+            
+            document.getElementById('total-alloc-display').textContent = total + '%';
+            document.getElementById('total-alloc-display').style.color = total === 100 ? 'var(--green)' : 'var(--red)';
+            document.getElementById('blended-yield-display').textContent = avgYield.toFixed(2) + '%';
+            document.getElementById('volatility').textContent = avgVolatility.toFixed(1) + '%';
+            
+            // Risk assessment
+            let riskLevel = 'Low';
+            let riskColor = 'var(--green)';
+            if (avgVolatility > 12) {
+                riskLevel = currentLang === 'vi' ? 'Cao' : 'High';
+                riskColor = 'var(--red)';
+            } else if (avgVolatility > 7) {
+                riskLevel = currentLang === 'vi' ? 'Trung bình' : 'Medium';
+                riskColor = 'var(--amber)';
+            } else {
+                riskLevel = currentLang === 'vi' ? 'Thấp' : 'Low';
+            }
+            
+            document.getElementById('portfolio-risk').textContent = riskLevel;
+            document.getElementById('portfolio-risk').style.color = riskColor;
+            
+            // Show warning if total != 100
+            const warning = document.getElementById('allocation-warning');
+            if (total !== 100) {
+                warning.classList.remove('hidden');
+            } else {
+                warning.classList.add('hidden');
+            }
+        }
+
+        function updateSummary() {
+            const cash = parseFloat(document.getElementById('cash').value) || 0;
+            const bank = parseFloat(document.getElementById('bank').value) || 0;
+            const realestate = parseFloat(document.getElementById('realestate').value) || 0;
+            const debt = parseFloat(document.getElementById('total-debt').value) || 0;
+            const debtRate = parseFloat(document.getElementById('debt-rate').value) || 0;
+            const debtTerm = parseFloat(document.getElementById('debt-term').value) || 0;
+
+            // Calculate monthly debt payment using amortization formula
+            let monthlyDebtPayment = 0;
+            if (debt > 0 && debtRate > 0 && debtTerm > 0) {
+                const monthlyRate = debtRate / 100 / 12;
+                const numPayments = debtTerm * 12;
+                monthlyDebtPayment = debt * (monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / (Math.pow(1 + monthlyRate, numPayments) - 1);
+            }
+
+            // Update auto-calculated debt payment displays
+            document.getElementById('auto-debt-payment').textContent = fmt(monthlyDebtPayment);
+            document.getElementById('expense-debt-payment').textContent = fmt(monthlyDebtPayment);
+
+            const totalAssets = cash + bank + realestate;
+            const netWorth = totalAssets - debt;
+            const liquidAssets = cash + bank;
+
+            const salary = parseFloat(document.getElementById('salary').value) || 0;
+            const otherIncome = parseFloat(document.getElementById('other-income').value) || 0;
+            const family = parseFloat(document.getElementById('family').value) || 0;
+            const eduExp = parseFloat(document.getElementById('education-exp').value) || 0;
+            const insurance = parseFloat(document.getElementById('insurance').value) || 0;
+            const otherExp = parseFloat(document.getElementById('other-exp').value) || 0;
+
+            const totalIncome = (salary + otherIncome) * 12;
+            const totalExpenses = (family + eduExp + insurance + monthlyDebtPayment + otherExp) * 12;
+            const cashFlow = totalIncome - totalExpenses;
+
+            // Calculate retirement funding (25x annual expenses)
+            const retirementFunding = totalExpenses * 25;
+            const retirementMillions = retirementFunding / 1000000;
+            document.getElementById('auto-retirement-amount').textContent = retirementMillions.toFixed(0) + (currentLang === 'vi' ? ' triệu ₫' : ' million ₫');
+
+            document.getElementById('total-assets').textContent = fmt(totalAssets);
+            document.getElementById('net-worth').textContent = fmt(netWorth);
+            document.getElementById('liquid-assets').textContent = fmt(liquidAssets);
+            document.getElementById('total-income').textContent = fmt(totalIncome);
+            document.getElementById('total-expenses').textContent = fmt(totalExpenses);
+            document.getElementById('cash-flow').textContent = fmt(cashFlow);
+        }
+
+        function fmt(val) {
+            if (val >= 1000000000) return (val/1000000000).toFixed(1) + (currentLang === 'vi' ? ' tỷ' : 'B');
+            if (val >= 1000000) return (val/1000000).toFixed(1) + (currentLang === 'vi' ? ' tr' : 'M');
+            return val.toLocaleString() + '₫';
+        }
+
+        function calculatePlan() {
+            updateSummary();
+            
+            // Check allocation is 100%
+            const ids = ['liquidity', 'income', 'growth', 'protection'];
+            if (currentTier === 'professional') ids.push('alternatives', 'opportunistic');
+            
+            let totalAlloc = 0;
+            ids.forEach(id => {
+                totalAlloc += parseInt(document.getElementById('alloc-' + id).value) || 0;
+            });
+            
+            if (totalAlloc !== 100) {
+                alert(currentLang === 'vi' 
+                    ? 'Tổng phân bổ phải bằng 100%. Vui lòng điều chỉnh!' 
+                    : 'Total allocation must equal 100%. Please adjust!');
+                return;
+            }
+            
+            const cash = parseFloat(document.getElementById('cash').value) || 0;
+            const bank = parseFloat(document.getElementById('bank').value) || 0;
+            const liquidAssets = cash + bank;
+            
+            const salary = parseFloat(document.getElementById('salary').value) || 0;
+            const otherIncome = parseFloat(document.getElementById('other-income').value) || 0;
+            const family = parseFloat(document.getElementById('family').value) || 0;
+            const eduExp = parseFloat(document.getElementById('education-exp').value) || 0;
+            const insurance = parseFloat(document.getElementById('insurance').value) || 0;
+            const otherExp = parseFloat(document.getElementById('other-exp').value) || 0;
+            
+            // Get auto-calculated debt payment
+            const debt = parseFloat(document.getElementById('total-debt').value) || 0;
+            const debtRate = parseFloat(document.getElementById('debt-rate').value) || 0;
+            const debtTerm = parseFloat(document.getElementById('debt-term').value) || 0;
+            
+            let monthlyDebtPayment = 0;
+            if (debt > 0 && debtRate > 0 && debtTerm > 0) {
+                const monthlyRate = debtRate / 100 / 12;
+                const numPayments = debtTerm * 12;
+                monthlyDebtPayment = debt * (monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / (Math.pow(1 + monthlyRate, numPayments) - 1);
+            }
+            
+            const monthlyIncome = salary + otherIncome;
+            const monthlyExpenses = family + eduExp + insurance + monthlyDebtPayment + otherExp;
+            const cashFlow = (monthlyIncome - monthlyExpenses) * 12;
+
+            // Get portfolio return from allocation
+            let weighted = 0;
+            ids.forEach(id => {
+                const val = parseInt(document.getElementById('alloc-' + id).value) || 0;
+                weighted += val * yields[id];
+            });
+            
+            const portfolioReturn = weighted / 100 / 100;
+
+            // Calculate recommended allocation based on net worth
+            const realestate = parseFloat(document.getElementById('realestate').value) || 0;
+            const totalAssets = cash + bank + realestate;
+            const netWorth = totalAssets - debt;
+            
+            let allocPct = 20;
+            if (netWorth > 23000000000) allocPct = 50;
+            else if (netWorth > 10000000000) allocPct = 40;
+            else if (netWorth > 2000000000) allocPct = 30;
+
+            const onetimeInvest = liquidAssets * (allocPct / 100);
+            const monthlyInvest = (cashFlow * 0.5) / 12;
+
+            const startAge = parseInt(document.getElementById('start-age').value);
+            
+            // Calculate retirement amount (25x annual expenses)
+            const annualExpenses = monthlyExpenses * 12;
+            const retirementAmount = annualExpenses * 25;
+            
+            const goals = [];
+            
+            // Goal 1 & 2: User-defined
+            for (let i = 1; i <= 2; i++) {
+                const age = parseInt(document.getElementById(`goal${i}-age`).value);
+                const amount = parseFloat(document.getElementById(`goal${i}-amount`).value) * 1000000;
+                if (amount > 0) goals.push({ id: i, age, amount, years: age - startAge });
+            }
+            
+            // Goal 3: Retirement (auto-calculated)
+            const retireAge = parseInt(document.getElementById('goal3-age').value);
+            goals.push({ id: 3, age: retireAge, amount: retirementAmount, years: retireAge - startAge });
+
+            // Calculate goal feasibility
+            let achievable = 0;
+            goals.forEach(g => {
+                if (g.years > 0) {
+                    const fv = onetimeInvest * Math.pow(1 + portfolioReturn, g.years) + 
+                               monthlyInvest * 12 * ((Math.pow(1 + portfolioReturn, g.years) - 1) / portfolioReturn);
+                    const possible = fv >= g.amount;
+                    achievable += possible ? 1 : 0;
+                    
+                    const statusEl = document.getElementById(`status-${g.id}`);
+                    if (possible) {
+                        statusEl.className = 'goal-status status-possible';
+                        statusEl.innerHTML = currentLang === 'vi' ? 'Khả thi' : 'Possible';
+                    } else {
+                        statusEl.className = 'goal-status status-impossible';
+                        statusEl.innerHTML = currentLang === 'vi' ? 'Không khả thi' : 'Impossible';
+                    }
+                } else {
+                    const statusEl = document.getElementById(`status-${g.id}`);
+                    statusEl.className = 'goal-status';
+                    statusEl.innerHTML = currentLang === 'vi' ? 'Đã quá hạn' : 'Past Due';
+                }
+            });
+
+            document.getElementById('onetime-invest').textContent = fmt(onetimeInvest);
+            document.getElementById('monthly-invest').textContent = fmt(monthlyInvest);
+            document.getElementById('goals-achievable').textContent = `${achievable}/${goals.length}`;
+            
+            const statusEl = document.getElementById('overall-status');
+            if (achievable === goals.length) {
+                statusEl.textContent = '✅';
+                statusEl.style.color = 'var(--green)';
+            } else if (achievable >= goals.length * 0.6) {
+                statusEl.textContent = '⚠️';
+                statusEl.style.color = 'var(--amber)';
+            } else {
+                statusEl.textContent = '❌';
+                statusEl.style.color = 'var(--red)';
+            }
+
+            document.getElementById('results-section').classList.remove('hidden');
+
+            // Create chart
+            const maxAge = Math.max(...goals.map(g => g.age)) + 5;
+            const years = [];
+            const wealth = [];
+            
+            for (let age = startAge; age <= maxAge; age++) {
+                years.push(age);
+                const t = age - startAge;
+                const w = onetimeInvest * Math.pow(1 + portfolioReturn, t) + 
+                         monthlyInvest * 12 * ((Math.pow(1 + portfolioReturn, t) - 1) / portfolioReturn);
+                wealth.push(w);
+            }
+
+            const ctx = document.getElementById('chart').getContext('2d');
+            if (chart) chart.destroy();
+
+            const datasets = [{
+                label: currentLang === 'vi' ? 'Tài sản dự kiến' : 'Projected Wealth',
+                data: wealth,
+                borderColor: '#dc2626',
+                backgroundColor: 'rgba(220, 38, 38, 0.1)',
+                borderWidth: 3,
+                fill: true,
+                tension: 0.4
+            }];
+
+            goals.forEach((g, i) => {
+                const colors = ['#2563eb', '#16a34a', '#f59e0b'];
+                datasets.push({
+                    label: `Goal ${g.id} (Age ${g.age})`,
+                    data: years.map(age => age === g.age ? g.amount : null),
+                    borderColor: colors[i],
+                    backgroundColor: colors[i],
+                    pointRadius: 8,
+                    pointHoverRadius: 10,
+                    showLine: false
+                });
+            });
+
+            chart = new Chart(ctx, {
+                type: 'line',
+                data: { labels: years, datasets },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: true },
+                        tooltip: {
+                            callbacks: {
+                                label: ctx => {
+                                    const label = ctx.dataset.label || '';
+                                    const value = ctx.parsed.y;
+                                    return `${label}: ${fmt(value)}`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: val => {
+                                    if (val >= 1000000000) return (val/1000000000).toFixed(1) + 'B';
+                                    if (val >= 1000000) return (val/1000000).toFixed(0) + 'M';
+                                    return val;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            document.getElementById('results-section').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Auto-update on input
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('input', () => {
+                if (input.type === 'range') {
+                    updateAlloc();
+                } else {
+                    updateSummary();
+                }
+            });
+        });
+
+        // Initialize
+        updateAlloc();
+        updateSummary();
+    </script>
+</body>
+</html>
