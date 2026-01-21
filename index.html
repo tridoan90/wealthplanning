@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Wealth Planning Simulator | Công cụ Hoạch định Tài sản </title>
+    <title>VinaCapital Wealth Planning Simulator | Công cụ Mô phỏng Hoạch định Tài sản VinaCapital</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
@@ -433,8 +433,8 @@
             <span class="vi">Mô Phỏng Quản Lý Tài Chính</span>
         </h1>
         <p>
-            <span class="en">Personal planning tool powered by Tri Doan</span>
-            <span class="vi">Công cụ Hoạch định Tài chính Cá nhân được phát triển bởi Tri Doan </span>
+            <span class="en">Personal planning tool powered by VinaCapital</span>
+            <span class="vi">Công cụ Hoạch định Tài chính Cá nhân được phát triển bởi VinaCapital</span>
         </p>
     </div>
 
@@ -848,7 +848,7 @@
                             <span class="en">🚀 Broad Market ETF, Sectoral/Smart-Beta ETF</span>
                             <span class="vi">📈 ETF Thị Trường, ETF Ngành/Smart-Beta</span>
                         </span>
-                        <span class="allocation-yield">10-18% p.a.</span>
+                        <span class="allocation-yield">12-15% p.a.</span>
                     </div>
                     <input type="range" class="allocation-slider" id="alloc-growth" min="0" max="100" value="30" oninput="updateAlloc()">
                     <div class="allocation-value">
@@ -878,7 +878,7 @@
                             <span class="en">🌟 Retirement Plan / LTSP</span>
                             <span class="vi">🛡️ Kế Hoạch Hưu Trí / LTSP</span>
                         </span>
-                        <span class="allocation-yield">8-15% p.a.</span>
+                        <span class="allocation-yield">8-12% p.a.</span>
                     </div>
                     <input type="range" class="allocation-slider" id="alloc-retirement" min="0" max="100" value="0" oninput="updateAlloc()">
                     <div class="allocation-value">
@@ -1267,12 +1267,12 @@
         const yields = {
             liquidity: 5.5,       // Money Market Fund, Short-term Fixed Income: 5-6%
             income: 8.5,          // Long-term Fixed Income Funds: 7-10% (was 10%)
-            growth: 14.0,         // Broad Market ETF, Sectoral/Smart-Beta ETF: 10-18%
-            balanced: 14.0,       // Balanced Funds, Equity Funds: 8-20% (was 15%)
-            retirement: 11.5,     // Retirement Plan / LTSP: 8-15% (was 12.5%)
+            growth: 14.0,         // Broad Market ETF, Sectoral/Smart-Beta ETF: 12-15%
+            balanced: 14.0,       // Balanced Funds, Equity Funds: 10-18% (was 15%)
+            retirement: 11.5,     // Retirement Plan / LTSP: 8-12% (was 12.5%)
             protection: 3.0,      // Protection / Insurance-linked: 2-4% (was 3.0%)
-            alternatives: 15.0,   // Alternatives (Private Markets, VPF1): 10-20% (was 11%)
-            opportunistic: 19.0   // Opportunistic (Gold, co-investments): 15-23% (was 8.5%)
+            alternatives: 15.0,   // Alternatives (Private Markets, VPF1): 10-18% (was 11%)
+            opportunistic: 19.0   // Opportunistic (Gold, co-investments): 15-20% (was 8.5%)
         };
 
         // Vietnam market volatility estimates (annualized standard deviation %)
@@ -1527,7 +1527,7 @@
             // Risk assessment
             let riskLevel = 'Low';
             let riskColor = 'var(--green)';
-            if (avgVolatility > 12.5) {
+            if (avgVolatility > 12) {
                 riskLevel = currentLang === 'vi' ? 'Cao' : 'High';
                 riskColor = 'var(--red)';
             } else if (avgVolatility > 7) {
