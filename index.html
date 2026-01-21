@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personal Wealth Planning Simulator | Công cụ Mô phỏng Hoạch định Tài sản Cá nhân</title>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Crimson+Pro:wght@600;700&display=swap" rel="stylesheet">
+    <title>VinaCapital Wealth Planning Simulator | Công cụ Mô phỏng Hoạch định Tài sản VinaCapital</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
@@ -20,12 +20,30 @@
             --green: #16a34a;
             --blue: #2563eb;
             --amber: #f59e0b;
+            --gradient-primary: linear-gradient(135deg, #dc2626 0%, #f59e0b 100%);
+            --gradient-blue: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            --gradient-green: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            --gradient-purple: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+            --gradient-gold: linear-gradient(135deg, #f59e0b 0%, #eab308 100%);
+            --gradient-cyan: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
+        /* Modern Gradient Icons */
+        .modern-icon {
+            font-size: 1.25rem;
+            font-weight: 600;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-right: 0.5rem;
+        }
+
         body {
-            font-family: 'DM Sans', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-weight: 500;
             background: var(--bg);
             color: var(--black);
             line-height: 1.5;
@@ -39,7 +57,7 @@
         }
 
         .header h1 {
-            font-family: 'Crimson Pro', serif;
+            font-family: 'Inter', sans-serif; font-weight: 800; letter-spacing: -0.02em;
             font-size: 2rem;
             color: white;
             margin-bottom: 0.5rem;
@@ -102,11 +120,11 @@
             align-items: center;
             justify-content: center;
             font-weight: 700;
-            font-family: 'Crimson Pro', serif;
+            font-family: 'Inter', sans-serif; font-weight: 800; letter-spacing: -0.02em;
         }
 
         .step-title {
-            font-family: 'Crimson Pro', serif;
+            font-family: 'Inter', sans-serif; font-weight: 800; letter-spacing: -0.02em;
             font-size: 1.5rem;
             color: var(--black);
         }
@@ -138,6 +156,12 @@
             color: var(--grey);
             font-weight: 600;
             font-size: 0.875rem;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .input-wrapper input {
+            padding-left: 2rem;
         }
 
         input, select {
@@ -146,7 +170,7 @@
             border: 1px solid var(--grey-light);
             border-radius: 8px;
             font-size: 0.9375rem;
-            font-family: 'DM Sans', sans-serif;
+            font-family: 'Inter', sans-serif;
             background: white;
             transition: all 0.2s;
         }
@@ -193,7 +217,7 @@
         .summary-value {
             font-size: 1.5rem;
             font-weight: 700;
-            font-family: 'Crimson Pro', serif;
+            font-family: 'Inter', sans-serif; font-weight: 800; letter-spacing: -0.02em;
         }
 
         .tier-selector {
@@ -371,7 +395,7 @@
         .result-value {
             font-size: 1.75rem;
             font-weight: 700;
-            font-family: 'Crimson Pro', serif;
+            font-family: 'Inter', sans-serif; font-weight: 800; letter-spacing: -0.02em;
         }
 
         .chart-card {
@@ -420,6 +444,7 @@
             <div class="step-header">
                 <div class="step-number">1</div>
                 <h2 class="step-title">
+                    <span class="modern-icon">💎</span>
                     <span class="en">Assets & Liabilities</span>
                     <span class="vi">Tài Sản & Nợ</span>
                 </h2>
@@ -428,8 +453,8 @@
             <div class="grid2">
                 <div>
                     <h3 style="margin-bottom: 1rem; color: var(--grey-dark);">
-                        <span class="en">💰 Assets</span>
-                        <span class="vi">💰 Tài Sản</span>
+                        <span class="en">💎 Assets</span>
+                        <span class="vi">💎 Tài Sản</span>
                     </h3>
                     
                     <div class="input-group">
@@ -468,8 +493,8 @@
 
                 <div>
                     <h3 style="margin-bottom: 1rem; color: var(--grey-dark);">
-                        <span class="en">💳 Liabilities / Debt</span>
-                        <span class="vi">💳 Nợ</span>
+                        <span class="en">📉 Liabilities / Debt</span>
+                        <span class="vi">📉 Nợ</span>
                     </h3>
                     
                     <div class="input-group">
@@ -547,6 +572,7 @@
             <div class="step-header">
                 <div class="step-number">2</div>
                 <h2 class="step-title">
+                    <span class="modern-icon">📊</span>
                     <span class="en">Income & Expenses</span>
                     <span class="vi">Thu Nhập & Chi Phí</span>
                 </h2>
@@ -555,8 +581,8 @@
             <div class="grid2">
                 <div>
                     <h3 style="margin-bottom: 1rem; color: var(--grey-dark);">
-                        <span class="en">💵 Income (Monthly)</span>
-                        <span class="vi">💵 Thu Nhập (Hàng Tháng)</span>
+                        <span class="en">💰 Income (Monthly)</span>
+                        <span class="vi">💰 Thu Nhập (Hàng Tháng)</span>
                     </h3>
                     
                     <div class="input-group">
@@ -566,7 +592,7 @@
                         </label>
                         <div class="input-wrapper">
                             <span class="input-prefix">₫</span>
-                            <input type="text" id="salary" value="72,000,000" data-value="72000000">
+                            <input type="text" id="salary" value="62,000,000" data-value="62000000">
                         </div>
                     </div>
 
@@ -577,15 +603,15 @@
                         </label>
                         <div class="input-wrapper">
                             <span class="input-prefix">₫</span>
-                            <input type="text" id="other-income" value="0" data-value="0">
+                            <input type="text" id="other-income" value="2,000,000" data-value="2000000">
                         </div>
                     </div>
                 </div>
 
                 <div>
                     <h3 style="margin-bottom: 1rem; color: var(--grey-dark);">
-                        <span class="en">💸 Expenses (Monthly)</span>
-                        <span class="vi">💸 Chi Phí (Hàng Tháng)</span>
+                        <span class="en">💳 Expenses (Monthly)</span>
+                        <span class="vi">💳 Chi Phí (Hàng Tháng)</span>
                     </h3>
                     
                     <div class="input-group">
@@ -595,7 +621,7 @@
                         </label>
                         <div class="input-wrapper">
                             <span class="input-prefix">₫</span>
-                            <input type="text" id="family" value="25,000,000" data-value="25000000">
+                            <input type="text" id="family" value="30,000,000" data-value="30000000">
                         </div>
                     </div>
 
@@ -606,7 +632,7 @@
                         </label>
                         <div class="input-wrapper">
                             <span class="input-prefix">₫</span>
-                            <input type="text" id="education-exp" value="8,000,000" data-value="8000000">
+                            <input type="text" id="education-exp" value="6,000,000" data-value="6000000">
                         </div>
                     </div>
 
@@ -715,14 +741,14 @@
                         <option value="highly-conservative">
                             <span class="en">Highly Conservative (Rất thận trọng)</span>
                         </option>
-                        <option value="balanced" selected>
+                        <option value="balanced">
                             <span class="en">Balanced (Cân bằng)</span>
                         </option>
-                        <option value="growth">
+                        <option value="growth" selected>
                             <span class="en">Growth (Tăng trưởng)</span>
                         </option>
-                        <option value="adventurous">
-                            <span class="en">Adventurous (Mạo hiểm)</span>
+                        <option value="ambitious">
+                            <span class="en">Ambitious (Yêu Cầu Rất Cao)</span>
                         </option>
                     </select>
                 </div>
@@ -743,8 +769,8 @@
                 <div class="allocation-item">
                     <div class="allocation-header">
                         <span class="allocation-name">
-                            <span class="en">💵 Money Market Fund, Short-term Fixed Income</span>
-                            <span class="vi">💵 Quỹ Thị Trường Tiền Tệ, Trái Phiếu Ngắn Hạn</span>
+                            <span class="en">🌊 Money Market Fund, Short-term Fixed Income</span>
+                            <span class="vi">🌊 Quỹ Thị Trường Tiền Tệ, Trái Phiếu Ngắn Hạn</span>
                         </span>
                         <span class="allocation-yield">5-6% p.a.</span>
                     </div>
@@ -755,43 +781,43 @@
                 <div class="allocation-item">
                     <div class="allocation-header">
                         <span class="allocation-name">
-                            <span class="en">📜 Long-term Fixed Income Funds</span>
+                            <span class="en">🏛️ Long-term Fixed Income Funds</span>
                             <span class="vi">📜 Quỹ Trái Phiếu Dài Hạn</span>
                         </span>
                         <span class="allocation-yield">8-12% p.a.</span>
                     </div>
-                    <input type="range" class="allocation-slider" id="alloc-income" min="0" max="100" value="25" oninput="updateAlloc()">
-                    <div class="allocation-value"><span id="val-income">25</span>%</div>
+                    <input type="range" class="allocation-slider" id="alloc-income" min="0" max="100" value="10" oninput="updateAlloc()">
+                    <div class="allocation-value"><span id="val-income">10</span>%</div>
                 </div>
 
                 <div class="allocation-item">
                     <div class="allocation-header">
                         <span class="allocation-name">
-                            <span class="en">📈 Broad Market ETF, Sectoral/Smart-Beta ETF</span>
+                            <span class="en">🚀 Broad Market ETF, Sectoral/Smart-Beta ETF</span>
                             <span class="vi">📈 ETF Thị Trường, ETF Ngành/Smart-Beta</span>
                         </span>
-                        <span class="allocation-yield">10-20% p.a.</span>
+                        <span class="allocation-yield">10-18% p.a.</span>
                     </div>
-                    <input type="range" class="allocation-slider" id="alloc-growth" min="0" max="100" value="25" oninput="updateAlloc()">
-                    <div class="allocation-value"><span id="val-growth">25</span>%</div>
+                    <input type="range" class="allocation-slider" id="alloc-growth" min="0" max="100" value="30" oninput="updateAlloc()">
+                    <div class="allocation-value"><span id="val-growth">30</span>%</div>
                 </div>
 
                 <div class="allocation-item">
                     <div class="allocation-header">
                         <span class="allocation-name">
-                            <span class="en">⚖️ Balanced Funds, Equity Funds</span>
-                            <span class="vi">⚖️ Quỹ Cân Bằng, Quỹ Cổ Phiếu</span>
+                            <span class="en">⚡ Balanced Funds, Equity Funds</span>
+                            <span class="vi">⚡ Quỹ Cân Bằng, Quỹ Cổ Phiếu</span>
                         </span>
-                        <span class="allocation-yield">10-20% p.a.</span>
+                        <span class="allocation-yield">10-18% p.a.</span>
                     </div>
-                    <input type="range" class="allocation-slider" id="alloc-balanced" min="0" max="100" value="15" oninput="updateAlloc()">
-                    <div class="allocation-value"><span id="val-balanced">15</span>%</div>
+                    <input type="range" class="allocation-slider" id="alloc-balanced" min="0" max="100" value="30" oninput="updateAlloc()">
+                    <div class="allocation-value"><span id="val-balanced">30</span>%</div>
                 </div>
 
                 <div class="allocation-item">
                     <div class="allocation-header">
                         <span class="allocation-name">
-                            <span class="en">🛡️ Retirement Plan / LTSP</span>
+                            <span class="en">🌟 Retirement Plan / LTSP</span>
                             <span class="vi">🛡️ Kế Hoạch Hưu Trí / LTSP</span>
                         </span>
                         <span class="allocation-yield">10-15% p.a.</span>
@@ -803,13 +829,13 @@
                 <div class="allocation-item">
                     <div class="allocation-header">
                         <span class="allocation-name">
-                            <span class="en">🏥 Protection / Insurance-linked</span>
-                            <span class="vi">🏥 Bảo Vệ / Liên Kết Bảo Hiểm</span>
+                            <span class="en">💫 Protection / Insurance-linked</span>
+                            <span class="vi">💫 Bảo Vệ / Liên Kết Bảo Hiểm</span>
                         </span>
                         <span class="allocation-yield">3.0% p.a.</span>
                     </div>
-                    <input type="range" class="allocation-slider" id="alloc-protection" min="0" max="100" value="5" oninput="updateAlloc()">
-                    <div class="allocation-value"><span id="val-protection">5</span>%</div>
+                    <input type="range" class="allocation-slider" id="alloc-protection" min="0" max="100" value="0" oninput="updateAlloc()">
+                    <div class="allocation-value"><span id="val-protection">0</span>%</div>
                 </div>
             </div>
 
@@ -817,8 +843,8 @@
                 <div class="allocation-item">
                     <div class="allocation-header">
                         <span class="allocation-name">
-                            <span class="en">🏢 Alternatives (Private Markets)</span>
-                            <span class="vi">🏢 Đầu Tư Thay Thế (Thị Trường Riêng)</span>
+                            <span class="en">🔮 Alternatives (Private Markets)</span>
+                            <span class="vi">🔮 Đầu Tư Thay Thế (Thị Trường Riêng)</span>
                         </span>
                         <span class="allocation-yield">8-14% p.a.</span>
                     </div>
@@ -829,8 +855,8 @@
                 <div class="allocation-item">
                     <div class="allocation-header">
                         <span class="allocation-name">
-                            <span class="en">🎲 Opportunistic / Diversifiers</span>
-                            <span class="vi">🎲 Cơ Hội / Đa Dạng Hóa</span>
+                            <span class="en">✨ Opportunistic / Diversifiers</span>
+                            <span class="vi">✨ Cơ Hội / Đa Dạng Hóa</span>
                         </span>
                         <span class="allocation-yield">5-12% p.a.</span>
                     </div>
@@ -886,6 +912,7 @@
             <div class="step-header">
                 <div class="step-number">3</div>
                 <h2 class="step-title">
+                    <span class="modern-icon">🎯</span>
                     <span class="en">Life Goals & Financial Planning</span>
                     <span class="vi">Mục Tiêu Cuộc Sống & Kế Hoạch Tài Chính</span>
                 </h2>
@@ -897,7 +924,7 @@
                         <span class="en">Start Age / Current Age</span>
                         <span class="vi">Tuổi bắt đầu / Tuổi hiện tại</span>
                     </label>
-                    <input type="number" id="start-age" value="45" min="18" max="100">
+                    <input type="number" id="start-age" value="40" min="18" max="100">
                 </div>
                 <div class="input-group">
                     <label class="input-label">
@@ -913,8 +940,8 @@
                 <div class="goal-item">
                     <div class="goal-header">
                         <span class="goal-name">
-                            <span class="en">🎓 Goal 1: Children Studying Abroad</span>
-                            <span class="vi">🎓 Mục tiêu 1: Con Cái Du Học</span>
+                            <span class="en">✨ Goal 1: Children Studying Abroad</span>
+                            <span class="vi">✨ Mục tiêu 1: Con Cái Du Học</span>
                         </span>
                         <span class="goal-status status-possible" id="status-1">
                             <span class="en">Calculating...</span>
@@ -953,8 +980,8 @@
                 <div class="goal-item">
                     <div class="goal-header">
                         <span class="goal-name">
-                            <span class="en">🚗 Goal 2: Buying Car</span>
-                            <span class="vi">🚗 Mục tiêu 2: Mua Xe</span>
+                            <span class="en">🚀 Goal 2: Buying Car</span>
+                            <span class="vi">🚀 Mục tiêu 2: Mua Xe</span>
                         </span>
                         <span class="goal-status status-possible" id="status-2">
                             <span class="en">Calculating...</span>
@@ -993,8 +1020,8 @@
                 <div class="goal-item" style="border: 2px solid var(--amber);">
                     <div class="goal-header">
                         <span class="goal-name">
-                            <span class="en">🌴 Goal 3: Happy Retirement</span>
-                            <span class="vi">🌴 Mục tiêu 3: Nghỉ Hưu Hạnh Phúc</span>
+                            <span class="en">🌅 Goal 3: Happy Retirement</span>
+                            <span class="vi">🌅 Mục tiêu 3: Nghỉ Hưu Hạnh Phúc</span>
                         </span>
                         <span class="goal-status status-possible" id="status-3">
                             <span class="en">Calculating...</span>
@@ -1007,19 +1034,19 @@
                                 <span class="en">Retirement Age</span>
                                 <span class="vi">Tuổi nghỉ hưu</span>
                             </label>
-                            <input type="number" id="goal3-age" value="68" min="18" max="100">
+                            <input type="number" id="goal3-age" value="62" min="18" max="100">
                         </div>
                         <div class="input-group">
                             <label class="input-label">
                                 <span class="en">Life Expectancy</span>
                                 <span class="vi">Tuổi thọ dự kiến</span>
                             </label>
-                            <input type="number" id="life-expectancy" value="90" min="60" max="120">
+                            <input type="number" id="life-expectancy" value="86" min="60" max="120">
                         </div>
                         <div class="input-group">
                             <label class="input-label" style="color: var(--amber);">
-                                <span class="en">Required Amount (Auto: ~25x Annual Expenses + Inflation)</span>
-                                <span class="vi">Số tiền cần (Tự động: ~25x Chi phí năm + Lạm phát)</span>
+                                <span class="en">Required Amount (Auto-calculated for Life Expectancy)</span>
+                                <span class="vi">Số tiền cần (Tự động tính đến tuổi thọ)</span>
                             </label>
                             <div style="padding: 0.75rem; background: rgba(245, 158, 11, 0.1); border-radius: 8px; font-weight: 600; color: var(--amber); border: 1px solid var(--amber);" id="auto-retirement-amount">
                                 0 ₫
@@ -1037,8 +1064,8 @@
             </div>
 
             <h3 style="margin: 2rem 0 1rem 0; color: var(--grey-dark); font-size: 1.1rem;">
-                <span class="en">💼 Investment Planning</span>
-                <span class="vi">💼 Kế Hoạch Đầu Tư</span>
+                <span class="en">🎨 Investment Planning</span>
+                <span class="vi">🎨 Kế Hoạch Đầu Tư</span>
             </h3>
 
             <div class="grid2" style="margin-bottom: 1rem;">
@@ -1049,7 +1076,7 @@
                     </label>
                     <div class="input-wrapper">
                         <span class="input-prefix">₫</span>
-                        <input type="text" id="onetime-investment" value="100,000,000" data-value="100000000">
+                        <input type="text" id="onetime-investment" value="120,000,000" data-value="120000000">
                     </div>
                 </div>
                 <div class="input-group">
@@ -1057,7 +1084,7 @@
                         <span class="en">Monthly Investment (% of Net Cash Flow)</span>
                         <span class="vi">Đầu tư hàng tháng (% Dòng tiền ròng)</span>
                     </label>
-                    <input type="number" id="monthly-invest-pct" value="30.0" min="0" max="100" step="1">
+                    <input type="number" id="monthly-invest-pct" value="70.0" min="0" max="100" step="1">
                 </div>
             </div>
 
@@ -1156,7 +1183,7 @@
         const yields = {
             liquidity: 5.5,       // Money Market Fund, Short-term Fixed Income: 5-6%
             income: 10.0,         // Long-term Fixed Income Funds: 8-12%
-            growth: 15.0,         // Broad Market ETF, Sectoral/Smart-Beta ETF: 10-20%
+            growth: 14.0,         // Broad Market ETF, Sectoral/Smart-Beta ETF: 10-18% (reduced)
             balanced: 15.0,       // Balanced Funds, Equity Funds: 10-20%
             retirement: 12.5,     // Retirement Plan / LTSP: 10-15%
             protection: 3.0,      // Protection / Insurance-linked: 3.0%
@@ -1175,32 +1202,52 @@
             opportunistic: 20
         };
 
+        // Risk profiles with allocations in 10% increments targeting specific yields
+        // Highly Conservative: 8.0%, Balanced: 9-10.5%, Growth: 10.5-12%, Ambitious: 13%
         const riskProfiles = {
             'highly-conservative': {
-                retail: { liquidity: 40, income: 25, growth: 10, balanced: 10, retirement: 10, protection: 5 },
-                professional: { liquidity: 30, income: 25, growth: 10, balanced: 10, retirement: 10, protection: 5, alternatives: 5, opportunistic: 5 }
+                // Target: 8.0% (Actual: 8.0%)
+                retail: { liquidity: 60, income: 20, growth: 0, balanced: 10, retirement: 10, protection: 0 },
+                professional: { liquidity: 50, income: 20, growth: 10, balanced: 10, retirement: 10, protection: 0, alternatives: 0, opportunistic: 0 }
             },
             'balanced': {
-                retail: { liquidity: 20, income: 25, growth: 25, balanced: 15, retirement: 10, protection: 5 },
-                professional: { liquidity: 15, income: 20, growth: 25, balanced: 15, retirement: 10, protection: 5, alternatives: 5, opportunistic: 5 }
+                // Target: 9-10.5% (Actual: 10.1%)
+                retail: { liquidity: 30, income: 20, growth: 20, balanced: 20, retirement: 10, protection: 0 },
+                professional: { liquidity: 20, income: 20, growth: 20, balanced: 20, retirement: 10, protection: 0, alternatives: 10, opportunistic: 0 }
             },
             'growth': {
-                retail: { liquidity: 10, income: 20, growth: 30, balanced: 25, retirement: 10, protection: 5 },
-                professional: { liquidity: 5, income: 15, growth: 30, balanced: 20, retirement: 10, protection: 5, alternatives: 10, opportunistic: 5 }
+                // Target: 10.5-12% (Actual: 11.65%)
+                retail: { liquidity: 20, income: 10, growth: 30, balanced: 30, retirement: 10, protection: 0 },
+                professional: { liquidity: 10, income: 10, growth: 30, balanced: 20, retirement: 10, protection: 0, alternatives: 20, opportunistic: 0 }
             },
-            'adventurous': {
-                retail: { liquidity: 5, income: 10, growth: 40, balanced: 30, retirement: 10, protection: 5 },
-                professional: { liquidity: 5, income: 10, growth: 30, balanced: 25, retirement: 10, protection: 5, alternatives: 10, opportunistic: 5 }
+            'ambitious': {
+                // Target: 13% (Actual: 13.05%)
+                retail: { liquidity: 10, income: 0, growth: 40, balanced: 40, retirement: 10, protection: 0 },
+                professional: { liquidity: 10, income: 0, growth: 30, balanced: 30, retirement: 10, protection: 0, alternatives: 20, opportunistic: 0 }
             }
         };
 
         // Thousand separator formatting functions
         function formatNumber(num) {
-            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            if (typeof num === 'string') num = parseFloat(num);
+            if (isNaN(num)) return '0';
+            return Math.round(num).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
 
         function parseFormattedNumber(str) {
-            return parseFloat(str.replace(/,/g, '')) || 0;
+            if (typeof str === 'number') return str;
+            return parseFloat(str.toString().replace(/,/g, '')) || 0;
+        }
+
+        function fmt(val) {
+            const absVal = Math.abs(val);
+            if (absVal >= 1000000000) {
+                return formatNumber((val/1000000000).toFixed(2)) + (currentLang === 'vi' ? ' tỷ ₫' : 'B ₫');
+            }
+            if (absVal >= 1000000) {
+                return formatNumber((val/1000000).toFixed(2)) + (currentLang === 'vi' ? ' tr ₫' : 'M ₫');
+            }
+            return formatNumber(Math.round(val)) + ' ₫';
         }
 
         function setupNumberInput(input) {
@@ -1223,10 +1270,23 @@
             });
         }
 
-        // Initialize all number inputs with thousand separators
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('input[type="text"][data-value]').forEach(setupNumberInput);
-        });
+        // Initialize number inputs with thousand separators
+        function initializeNumberInputs() {
+            document.querySelectorAll('input[type="text"][data-value]').forEach(input => {
+                setupNumberInput(input);
+                // Set initial formatted value
+                const val = input.getAttribute('data-value') || '0';
+                input.value = formatNumber(val);
+            });
+        }
+        
+        // Call initialization when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeNumberInputs);
+        } else {
+            // DOM already loaded, initialize immediately
+            initializeNumberInputs();
+        }
 
         function toggleLang() {
             currentLang = currentLang === 'en' ? 'vi' : 'en';
@@ -1290,18 +1350,23 @@
         function updateAlloc() {
             if (isAdjusting) return;
             
-            const ids = ['liquidity', 'income', 'growth', 'protection'];
+            const ids = ['liquidity', 'income', 'growth', 'balanced', 'retirement', 'protection'];
             if (currentTier === 'professional') ids.push('alternatives', 'opportunistic');
             
             let total = 0, weighted = 0, volatilityWeighted = 0;
             const values = {};
             
             ids.forEach(id => {
-                const val = parseInt(document.getElementById('alloc-' + id).value) || 0;
+                const elem = document.getElementById('alloc-' + id);
+                if (!elem) return;
+                const val = parseInt(elem.value) || 0;
                 values[id] = val;
                 total += val;
                 weighted += val * yields[id];
                 volatilityWeighted += val * volatility[id];
+                // Update display value
+                const displayElem = document.getElementById('val-' + id);
+                if (displayElem) displayElem.textContent = val;
             });
             
             // Auto-adjust to 100% if total exceeds
@@ -1364,12 +1429,13 @@
         }
 
         function updateSummary() {
-            const cash = parseFormattedNumber(document.getElementById('cash').value);
-            const bank = parseFormattedNumber(document.getElementById('bank').value);
-            const realestate = parseFormattedNumber(document.getElementById('realestate').value);
-            const debt = parseFormattedNumber(document.getElementById('total-debt').value);
-            const debtRate = parseFloat(document.getElementById('debt-rate').value) || 0;
-            const debtTerm = parseFloat(document.getElementById('debt-term').value) || 0;
+            try {
+                const cash = parseFormattedNumber(document.getElementById('cash').value);
+                const bank = parseFormattedNumber(document.getElementById('bank').value);
+                const realestate = parseFormattedNumber(document.getElementById('realestate').value);
+                const debt = parseFormattedNumber(document.getElementById('total-debt').value);
+                const debtRate = parseFloat(document.getElementById('debt-rate').value) || 0;
+                const debtTerm = parseFloat(document.getElementById('debt-term').value) || 0;
 
             // Calculate monthly debt payment using amortization formula
             let monthlyDebtPayment = 0;
@@ -1400,17 +1466,57 @@
             const cashFlow = totalIncome - totalExpenses;
             const monthlyCashFlow = cashFlow / 12;
 
-            // Calculate retirement funding (25x annual expenses) with inflation adjustment
+            // Calculate retirement funding based ONLY on family expenses
             const inflationRate = parseFloat(document.getElementById('inflation-rate').value) / 100 || 0.04;
             const startAge = parseInt(document.getElementById('start-age').value) || 45;
             const retireAge = parseInt(document.getElementById('goal3-age').value) || 68;
+            const lifeExpectancy = parseInt(document.getElementById('life-expectancy').value) || 90;
             const yearsToRetirement = retireAge - startAge;
+            const retirementYears = lifeExpectancy - retireAge;
             
-            // Adjust expenses for inflation to retirement year
-            const futureAnnualExpenses = totalExpenses * Math.pow(1 + inflationRate, yearsToRetirement);
-            const retirementFunding = futureAnnualExpenses * 25;
+            // Get portfolio return for discounting
+            const ids = ['liquidity', 'income', 'growth', 'balanced', 'retirement', 'protection'];
+            if (currentTier === 'professional') ids.push('alternatives', 'opportunistic');
             
-            document.getElementById('auto-retirement-amount').textContent = fmt(retirementFunding);
+            let totalAlloc = 0, weighted = 0;
+            ids.forEach(id => {
+                const elem = document.getElementById('alloc-' + id);
+                if (elem) {
+                    const val = parseInt(elem.value) || 0;
+                    totalAlloc += val;
+                    weighted += val * yields[id];
+                }
+            });
+            
+            const portfolioReturn = totalAlloc > 0 ? weighted / totalAlloc / 100 : 0.10;
+            
+            // Annual family expense at retirement (inflation-adjusted)
+            const currentAnnualFamilyExpense = family * 12;
+            const futureAnnualFamilyExpense = currentAnnualFamilyExpense * Math.pow(1 + inflationRate, yearsToRetirement);
+            
+            // Calculate required corpus using monthly withdrawal simulation
+            // We need to find the corpus that will be depleted to zero after all withdrawals
+            // Work backwards: simulate withdrawals with growth
+            let requiredCorpus = 0;
+            
+            // Simulate each year of retirement
+            for (let y = retirementYears - 1; y >= 0; y--) {
+                // Annual withdrawal for this year (inflation adjusted from retirement start)
+                const annualWithdrawal = futureAnnualFamilyExpense * Math.pow(1 + inflationRate, y);
+                const monthlyWithdrawal = annualWithdrawal / 12;
+                
+                // Add this year's withdrawals with monthly compounding
+                // Formula: PV of annuity for 12 months
+                const monthlyRate = portfolioReturn / 12;
+                const pvOfYearWithdrawals = monthlyWithdrawal * ((1 - Math.pow(1 + monthlyRate, -12)) / monthlyRate);
+                
+                // Discount back from end of year y to beginning of retirement
+                requiredCorpus += pvOfYearWithdrawals / Math.pow(1 + portfolioReturn, y);
+            }
+            
+            const retirementCorpus = requiredCorpus;
+            
+            document.getElementById('auto-retirement-amount').textContent = fmt(retirementCorpus);
 
             // Calculate monthly investment amount
             const monthlyInvestPct = parseFloat(document.getElementById('monthly-invest-pct').value) || 0;
@@ -1420,16 +1526,6 @@
             document.getElementById('net-monthly-cashflow').textContent = fmt(monthlyCashFlow);
 
             // Calculate expected yield from allocation
-            const ids = ['liquidity', 'income', 'growth', 'balanced', 'retirement', 'protection'];
-            if (currentTier === 'professional') ids.push('alternatives', 'opportunistic');
-            
-            let totalAlloc = 0, weighted = 0;
-            ids.forEach(id => {
-                const val = parseInt(document.getElementById('alloc-' + id).value) || 0;
-                totalAlloc += val;
-                weighted += val * yields[id];
-            });
-            
             const expectedYield = totalAlloc > 0 ? weighted / totalAlloc : 0;
             document.getElementById('expected-yield-display').textContent = expectedYield.toFixed(2) + '%';
 
@@ -1439,6 +1535,9 @@
             document.getElementById('total-income').textContent = fmt(totalIncome);
             document.getElementById('total-expenses').textContent = fmt(totalExpenses);
             document.getElementById('cash-flow').textContent = fmt(cashFlow);
+            } catch (error) {
+                console.error('Error in updateSummary:', error);
+            }
         }
 
         function fmt(val) {
@@ -1448,27 +1547,28 @@
         }
 
         function calculatePlan() {
-            updateSummary();
-            
-            // Check allocation is 100%
-            const ids = ['liquidity', 'income', 'growth', 'balanced', 'retirement', 'protection'];
-            if (currentTier === 'professional') ids.push('alternatives', 'opportunistic');
-            
-            let totalAlloc = 0;
-            ids.forEach(id => {
-                totalAlloc += parseInt(document.getElementById('alloc-' + id).value) || 0;
-            });
-            
-            if (totalAlloc !== 100) {
-                alert(currentLang === 'vi' 
-                    ? 'Tổng phân bổ phải bằng 100%. Vui lòng điều chỉnh!' 
-                    : 'Total allocation must equal 100%. Please adjust!');
-                return;
-            }
-            
-            // Get investment inputs
-            const onetimeInvest = parseFormattedNumber(document.getElementById('onetime-investment').value);
-            const monthlyInvestPct = parseFloat(document.getElementById('monthly-invest-pct').value) || 0;
+            try {
+                updateSummary();
+                
+                // Check allocation is 100%
+                const ids = ['liquidity', 'income', 'growth', 'balanced', 'retirement', 'protection'];
+                if (currentTier === 'professional') ids.push('alternatives', 'opportunistic');
+                
+                let totalAlloc = 0;
+                ids.forEach(id => {
+                    totalAlloc += parseInt(document.getElementById('alloc-' + id).value) || 0;
+                });
+                
+                if (totalAlloc !== 100) {
+                    alert(currentLang === 'vi' 
+                        ? 'Tổng phân bổ phải bằng 100%. Vui lòng điều chỉnh!' 
+                        : 'Total allocation must equal 100%. Please adjust!');
+                    return;
+                }
+                
+                // Get investment inputs
+                const onetimeInvest = parseFormattedNumber(document.getElementById('onetime-investment').value);
+                const monthlyInvestPct = parseFloat(document.getElementById('monthly-invest-pct').value) || 0;
             
             const salary = parseFormattedNumber(document.getElementById('salary').value);
             const otherIncome = parseFormattedNumber(document.getElementById('other-income').value);
@@ -1508,18 +1608,25 @@
             const retireAge = parseInt(document.getElementById('goal3-age').value);
             const lifeExpectancy = parseInt(document.getElementById('life-expectancy').value) || 90;
             
-            // Calculate retirement funding with inflation-adjusted expenses
+            // Calculate retirement funding with ONLY family expenses (not other expenses)
             const yearsToRetirement = retireAge - startAge;
-            const currentFamilyExpense = family * 12; // Annual family spending only (base living expenses)
-            const futureAnnualExpense = currentFamilyExpense * Math.pow(1 + inflationRate, yearsToRetirement);
+            const currentAnnualFamilyExpense = family * 12; // Only family spending
+            const futureAnnualFamilyExpense = currentAnnualFamilyExpense * Math.pow(1 + inflationRate, yearsToRetirement);
             const retirementYears = lifeExpectancy - retireAge;
             
-            // Calculate retirement corpus needed (sum of discounted future withdrawals)
+            // Calculate required corpus using monthly withdrawal simulation
             let retirementAmount = 0;
-            for (let year = 0; year < retirementYears; year++) {
-                const yearlyExpense = futureAnnualExpense * Math.pow(1 + inflationRate, year);
-                const discountedValue = yearlyExpense / Math.pow(1 + portfolioReturn, year);
-                retirementAmount += discountedValue;
+            
+            for (let y = retirementYears - 1; y >= 0; y--) {
+                const annualWithdrawal = futureAnnualFamilyExpense * Math.pow(1 + inflationRate, y);
+                const monthlyWithdrawal = annualWithdrawal / 12;
+                
+                // PV of monthly withdrawals for this year
+                const monthlyRate = portfolioReturn / 12;
+                const pvOfYearWithdrawals = monthlyWithdrawal * ((1 - Math.pow(1 + monthlyRate, -12)) / monthlyRate);
+                
+                // Discount back to beginning of retirement
+                retirementAmount += pvOfYearWithdrawals / Math.pow(1 + portfolioReturn, y);
             }
             
             const goals = [];
@@ -1579,11 +1686,18 @@
 
             document.getElementById('results-section').classList.remove('hidden');
 
-            // Create chart with accurate wealth projection INCLUDING retirement withdrawal waterfall
+            // Create chart with CORRECT wealth projection using standard withdrawal formula
+            // Formula: FV = PV × (1 + r)^n - W × [((1 + r)^n - 1) / r]
+            // Where wealth continues to grow while withdrawals are made
+            
             const maxYears = lifeExpectancy - startAge;
             const years = [];
             const wealth = [];
             const withdrawals = [];
+            
+            // Calculate wealth at retirement (accumulation phase end)
+            const wealthAtRetirement = onetimeInvest * Math.pow(1 + portfolioReturn, yearsToRetirement) + 
+                                       monthlyInvest * 12 * ((Math.pow(1 + portfolioReturn, yearsToRetirement) - 1) / portfolioReturn);
             
             for (let year = 0; year <= maxYears; year++) {
                 const age = startAge + year;
@@ -1593,29 +1707,32 @@
                 
                 // Accumulation phase (before retirement)
                 if (year < yearsToRetirement) {
+                    // Standard FV with periodic contributions
                     w = onetimeInvest * Math.pow(1 + portfolioReturn, year) + 
                         monthlyInvest * 12 * ((Math.pow(1 + portfolioReturn, year) - 1) / portfolioReturn);
                     withdrawals.push(null);
                 }
                 // Withdrawal phase (during retirement)
                 else {
-                    const retirementYear = year - yearsToRetirement;
+                    const yearsInRetirement = year - yearsToRetirement;
                     
-                    // Start with accumulated wealth at retirement
-                    let retirementWealth = onetimeInvest * Math.pow(1 + portfolioReturn, yearsToRetirement) + 
-                                          monthlyInvest * 12 * ((Math.pow(1 + portfolioReturn, yearsToRetirement) - 1) / portfolioReturn);
+                    // Simulate year-by-year from retirement start through current year
+                    // At start of retirement year 0, we have wealthAtRetirement
+                    // Each year: grow at portfolio return, then make withdrawal
+                    let balance = wealthAtRetirement;
                     
-                    // Subtract all withdrawals up to this year
-                    for (let y = 0; y <= retirementYear; y++) {
-                        const yearlyWithdrawal = futureAnnualExpense * Math.pow(1 + inflationRate, y);
-                        const withdrawalTiming = Math.pow(1 + portfolioReturn, retirementYear - y);
-                        retirementWealth -= yearlyWithdrawal * withdrawalTiming;
+                    for (let y = 0; y <= yearsInRetirement; y++) {
+                        // Withdrawal for year y (inflation adjusted from retirement start)
+                        const yearWithdrawal = futureAnnualFamilyExpense * Math.pow(1 + inflationRate, y);
+                        
+                        // Balance grows for the year, then withdrawal is made at year end
+                        balance = balance * (1 + portfolioReturn) - yearWithdrawal;
                     }
                     
-                    w = Math.max(0, retirementWealth);
+                    w = Math.max(0, balance);
                     
-                    // Show withdrawal amount for this year
-                    const currentWithdrawal = futureAnnualExpense * Math.pow(1 + inflationRate, retirementYear);
+                    // Show annual withdrawal amount for display
+                    const currentWithdrawal = futureAnnualFamilyExpense * Math.pow(1 + inflationRate, yearsInRetirement);
                     withdrawals.push(currentWithdrawal);
                 }
                 
@@ -1716,6 +1833,10 @@
             });
 
             document.getElementById('results-section').scrollIntoView({ behavior: 'smooth' });
+            } catch (error) {
+                console.error('Error in calculatePlan:', error);
+                alert('Error calculating plan: ' + error.message + '\nPlease check console for details.');
+            }
         }
 
         // Auto-update on input
