@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VinaCapital Wealth Planning Simulator | Công cụ Mô phỏng Hoạch định Tài sản VinaCapital</title>
+    <title> Wealth Planning Simulator | Công cụ Hoạch định Tài sản </title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
@@ -433,8 +433,8 @@
             <span class="vi">Mô Phỏng Quản Lý Tài Chính</span>
         </h1>
         <p>
-            <span class="en">Personal planning tool powered by VinaCapital</span>
-            <span class="vi">Công cụ Hoạch định Tài chính Cá nhân được phát triển bởi VinaCapital</span>
+            <span class="en">Personal planning tool powered by Tri Doan</span>
+            <span class="vi">Công cụ Hoạch định Tài chính Cá nhân được phát triển bởi Tri Doan </span>
         </p>
     </div>
 
@@ -499,21 +499,21 @@
                                         <span class="en">Gold %</span>
                                         <span class="vi">Vàng %</span>
                                     </label>
-                                    <input type="number" id="gold-pct" value="40" min="0" max="100" style="width: 100%; padding: 0.25rem; border: 1px solid var(--grey-light); border-radius: 4px;" oninput="updateSummary()">
+                                    <input type="number" id="gold-pct" value="30" min="0" max="100" style="width: 100%; padding: 0.25rem; border: 1px solid var(--grey-light); border-radius: 4px;" oninput="updateSummary()">
                                 </div>
                                 <div>
                                     <label style="font-size: 0.75rem; color: var(--grey);">
                                         <span class="en">Stocks %</span>
                                         <span class="vi">Cổ phiếu %</span>
                                     </label>
-                                    <input type="number" id="stocks-pct" value="60" min="0" max="100" style="width: 100%; padding: 0.25rem; border: 1px solid var(--grey-light); border-radius: 4px;" oninput="updateSummary()">
+                                    <input type="number" id="stocks-pct" value="40" min="0" max="100" style="width: 100%; padding: 0.25rem; border: 1px solid var(--grey-light); border-radius: 4px;" oninput="updateSummary()">
                                 </div>
                                 <div>
                                     <label style="font-size: 0.75rem; color: var(--grey);">
                                         <span class="en">Bonds %</span>
                                         <span class="vi">Trái phiếu %</span>
                                     </label>
-                                    <input type="number" id="bonds-pct" value="0" min="0" max="100" style="width: 100%; padding: 0.25rem; border: 1px solid var(--grey-light); border-radius: 4px;" oninput="updateSummary()">
+                                    <input type="number" id="bonds-pct" value="30" min="0" max="100" style="width: 100%; padding: 0.25rem; border: 1px solid var(--grey-light); border-radius: 4px;" oninput="updateSummary()">
                                 </div>
                                 <div style="display: flex; align-items: end;">
                                     <span style="font-size: 0.75rem; color: var(--grey);" id="other-investments-total">Total: 100%</span>
@@ -820,8 +820,11 @@
                         </span>
                         <span class="allocation-yield">5-6% p.a.</span>
                     </div>
-                    <input type="range" class="allocation-slider" id="alloc-liquidity" min="0" max="100" value="10" oninput="updateAlloc()">
-                    <div class="allocation-value"><span id="val-liquidity">10</span>%</div>
+                    <input type="range" class="allocation-slider" id="alloc-liquidity" min="0" max="100" value="5" oninput="updateAlloc()">
+                    <div class="allocation-value">
+                        <input type="number" id="input-liquidity" min="0" max="100" value="5" style="width: 50px; padding: 2px 4px; border: 1px solid var(--grey-light); border-radius: 4px; text-align: center;" oninput="updateFromInput('liquidity')">
+                        <span style="margin-left: 4px;">%</span>
+                    </div>
                 </div>
 
                 <div class="allocation-item">
@@ -832,8 +835,11 @@
                         </span>
                         <span class="allocation-yield">7-10% p.a.</span>
                     </div>
-                    <input type="range" class="allocation-slider" id="alloc-income" min="0" max="100" value="10" oninput="updateAlloc()">
-                    <div class="allocation-value"><span id="val-income">10</span>%</div>
+                    <input type="range" class="allocation-slider" id="alloc-income" min="0" max="100" value="15" oninput="updateAlloc()">
+                    <div class="allocation-value">
+                        <input type="number" id="input-income" min="0" max="100" value="15" style="width: 50px; padding: 2px 4px; border: 1px solid var(--grey-light); border-radius: 4px; text-align: center;" oninput="updateFromInput('income')">
+                        <span style="margin-left: 4px;">%</span>
+                    </div>
                 </div>
 
                 <div class="allocation-item">
@@ -844,8 +850,11 @@
                         </span>
                         <span class="allocation-yield">10-18% p.a.</span>
                     </div>
-                    <input type="range" class="allocation-slider" id="alloc-growth" min="0" max="100" value="35" oninput="updateAlloc()">
-                    <div class="allocation-value"><span id="val-growth">35</span>%</div>
+                    <input type="range" class="allocation-slider" id="alloc-growth" min="0" max="100" value="30" oninput="updateAlloc()">
+                    <div class="allocation-value">
+                        <input type="number" id="input-growth" min="0" max="100" value="30" style="width: 50px; padding: 2px 4px; border: 1px solid var(--grey-light); border-radius: 4px; text-align: center;" oninput="updateFromInput('growth')">
+                        <span style="margin-left: 4px;">%</span>
+                    </div>
                 </div>
 
                 <div class="allocation-item">
@@ -856,8 +865,11 @@
                         </span>
                         <span class="allocation-yield">10-18% p.a.</span>
                     </div>
-                    <input type="range" class="allocation-slider" id="alloc-balanced" min="0" max="100" value="35" oninput="updateAlloc()">
-                    <div class="allocation-value"><span id="val-balanced">35</span>%</div>
+                    <input type="range" class="allocation-slider" id="alloc-balanced" min="0" max="100" value="50" oninput="updateAlloc()">
+                    <div class="allocation-value">
+                        <input type="number" id="input-balanced" min="0" max="100" value="50" style="width: 50px; padding: 2px 4px; border: 1px solid var(--grey-light); border-radius: 4px; text-align: center;" oninput="updateFromInput('balanced')">
+                        <span style="margin-left: 4px;">%</span>
+                    </div>
                 </div>
 
                 <div class="allocation-item">
@@ -868,8 +880,11 @@
                         </span>
                         <span class="allocation-yield">8-15% p.a.</span>
                     </div>
-                    <input type="range" class="allocation-slider" id="alloc-retirement" min="0" max="100" value="10" oninput="updateAlloc()">
-                    <div class="allocation-value"><span id="val-retirement">10</span>%</div>
+                    <input type="range" class="allocation-slider" id="alloc-retirement" min="0" max="100" value="0" oninput="updateAlloc()">
+                    <div class="allocation-value">
+                        <input type="number" id="input-retirement" min="0" max="100" value="0" style="width: 50px; padding: 2px 4px; border: 1px solid var(--grey-light); border-radius: 4px; text-align: center;" oninput="updateFromInput('retirement')">
+                        <span style="margin-left: 4px;">%</span>
+                    </div>
                 </div>
 
                 <div class="allocation-item">
@@ -881,7 +896,10 @@
                         <span class="allocation-yield">2-4% p.a.</span>
                     </div>
                     <input type="range" class="allocation-slider" id="alloc-protection" min="0" max="100" value="0" oninput="updateAlloc()">
-                    <div class="allocation-value"><span id="val-protection">0</span>%</div>
+                    <div class="allocation-value">
+                        <input type="number" id="input-protection" min="0" max="100" value="0" style="width: 50px; padding: 2px 4px; border: 1px solid var(--grey-light); border-radius: 4px; text-align: center;" oninput="updateFromInput('protection')">
+                        <span style="margin-left: 4px;">%</span>
+                    </div>
                 </div>
             </div>
 
@@ -895,7 +913,10 @@
                         <span class="allocation-yield">10-20% p.a.</span>
                     </div>
                     <input type="range" class="allocation-slider" id="alloc-alternatives" min="0" max="100" value="0" oninput="updateAlloc()">
-                    <div class="allocation-value"><span id="val-alternatives">0</span>%</div>
+                    <div class="allocation-value">
+                        <input type="number" id="input-alternatives" min="0" max="100" value="0" style="width: 50px; padding: 2px 4px; border: 1px solid var(--grey-light); border-radius: 4px; text-align: center;" oninput="updateFromInput('alternatives')">
+                        <span style="margin-left: 4px;">%</span>
+                    </div>
                 </div>
 
                 <div class="allocation-item">
@@ -907,7 +928,10 @@
                         <span class="allocation-yield">15-23% p.a.</span>
                     </div>
                     <input type="range" class="allocation-slider" id="alloc-opportunistic" min="0" max="100" value="0" oninput="updateAlloc()">
-                    <div class="allocation-value"><span id="val-opportunistic">0</span>%</div>
+                    <div class="allocation-value">
+                        <input type="number" id="input-opportunistic" min="0" max="100" value="0" style="width: 50px; padding: 2px 4px; border: 1px solid var(--grey-light); border-radius: 4px; text-align: center;" oninput="updateFromInput('opportunistic')">
+                        <span style="margin-left: 4px;">%</span>
+                    </div>
                 </div>
             </div>
 
@@ -1279,29 +1303,32 @@
             opportunistic: { t0: 50, t3: 70 }     // Gold T+0 accessible (with spread), co-inv locked
         };
 
-        // Risk profiles with allocations in 10% increments targeting specific yields
-        // Updated for Vietnam market returns + increased riskier assets (+10% for balanced/growth/ambitious)
-        // Highly Conservative: 8.0%, Balanced: 11%, Growth: 12.4%, Ambitious: 13.8%
+        // Risk profiles with specified allocations
+        // Focus: Practical allocation based on Vietnam market reality
         const riskProfiles = {
             'highly-conservative': {
-                // Target: 8.0% (Actual: 7.85%) - Unchanged
-                retail: { liquidity: 50, income: 30, growth: 0, balanced: 10, retirement: 10, protection: 0 },
-                professional: { liquidity: 40, income: 30, growth: 0, balanced: 10, retirement: 10, protection: 10, alternatives: 0, opportunistic: 0 }
+                // Retail: 10-80-0-0-10-0
+                retail: { liquidity: 10, income: 80, growth: 0, balanced: 0, retirement: 10, protection: 0 },
+                // Professional: 20-60-10-0-10-0-0-0
+                professional: { liquidity: 20, income: 60, growth: 10, balanced: 0, retirement: 10, protection: 0, alternatives: 0, opportunistic: 0 }
             },
             'balanced': {
-                // Target: 11% (Actual: 10.95%) - Riskier assets 40%→50%
-                retail: { liquidity: 20, income: 20, growth: 25, balanced: 25, retirement: 10, protection: 0 },
-                professional: { liquidity: 10, income: 20, growth: 25, balanced: 25, retirement: 10, protection: 0, alternatives: 10, opportunistic: 0 }
+                // Retail: 10-30-30-20-10-0
+                retail: { liquidity: 10, income: 30, growth: 30, balanced: 20, retirement: 10, protection: 0 },
+                // Professional: 10-10-30-30-10-0-5-5
+                professional: { liquidity: 10, income: 10, growth: 30, balanced: 30, retirement: 10, protection: 0, alternatives: 5, opportunistic: 5 }
             },
             'growth': {
-                // Target: 12.4% (Actual: 12.35%) - Riskier assets 60%→70%
-                retail: { liquidity: 10, income: 10, growth: 35, balanced: 35, retirement: 10, protection: 0 },
-                professional: { liquidity: 0, income: 10, growth: 35, balanced: 25, retirement: 10, protection: 0, alternatives: 20, opportunistic: 0 }
+                // Retail: 5-15-30-50-0-0
+                retail: { liquidity: 5, income: 15, growth: 30, balanced: 50, retirement: 0, protection: 0 },
+                // Professional: 5-10-25-40-0-0-10-10
+                professional: { liquidity: 5, income: 10, growth: 25, balanced: 40, retirement: 0, protection: 0, alternatives: 10, opportunistic: 10 }
             },
             'ambitious': {
-                // Target: 13.8% (Actual: 13.75%) - Riskier assets 80%→90%
-                retail: { liquidity: 0, income: 0, growth: 45, balanced: 45, retirement: 10, protection: 0 },
-                professional: { liquidity: 0, income: 0, growth: 40, balanced: 35, retirement: 10, protection: 0, alternatives: 10, opportunistic: 5 }
+                // Retail: 5-0-30-65-0-0
+                retail: { liquidity: 5, income: 0, growth: 30, balanced: 65, retirement: 0, protection: 0 },
+                // Professional: 0-0-30-40-0-0-15-15
+                professional: { liquidity: 0, income: 0, growth: 30, balanced: 40, retirement: 0, protection: 0, alternatives: 15, opportunistic: 15 }
             }
         };
 
@@ -1385,7 +1412,8 @@
                     const elem = document.getElementById('alloc-' + id);
                     if (elem) {
                         elem.value = 0;
-                        document.getElementById('val-' + id).textContent = 0;
+                        const inputElem = document.getElementById('input-' + id);
+                        if (inputElem) inputElem.value = 0;
                     }
                 });
             }
@@ -1401,7 +1429,8 @@
                 const element = document.getElementById('alloc-' + key);
                 if (element) {
                     element.value = profile[key];
-                    document.getElementById('val-' + key).textContent = profile[key];
+                    const inputElem = document.getElementById('input-' + key);
+                    if (inputElem) inputElem.value = profile[key];
                 }
             });
             isAdjusting = false;
@@ -1419,10 +1448,24 @@
             ids.forEach((id, index) => {
                 const val = equal + (index === 0 ? remaining : 0);
                 document.getElementById('alloc-' + id).value = val;
-                document.getElementById('val-' + id).textContent = val;
+                const inputElem = document.getElementById('input-' + id);
+                if (inputElem) inputElem.value = val;
             });
             isAdjusting = false;
             updateAlloc();
+        }
+
+        function updateFromInput(id) {
+            const inputElem = document.getElementById('input-' + id);
+            const sliderElem = document.getElementById('alloc-' + id);
+            if (inputElem && sliderElem) {
+                let val = parseInt(inputElem.value) || 0;
+                // Clamp to 0-100
+                val = Math.max(0, Math.min(100, val));
+                inputElem.value = val;
+                sliderElem.value = val;
+                updateAlloc();
+            }
         }
 
         function updateAlloc() {
@@ -1442,9 +1485,9 @@
                 total += val;
                 weighted += val * yields[id];
                 volatilityWeighted += val * volatility[id];
-                // Update display value
-                const displayElem = document.getElementById('val-' + id);
-                if (displayElem) displayElem.textContent = val;
+                // Update input box
+                const inputElem = document.getElementById('input-' + id);
+                if (inputElem) inputElem.value = val;
             });
             
             // Auto-adjust to 100% if total exceeds
@@ -1457,7 +1500,7 @@
                     if (index < ids.length - 1) {
                         const newVal = Math.floor(values[id] * scale);
                         document.getElementById('alloc-' + id).value = newVal;
-                        document.getElementById('val-' + id).textContent = newVal;
+                        document.getElementById('input-' + id).value = newVal;
                         adjusted += newVal;
                     }
                 });
@@ -1466,7 +1509,7 @@
                 const lastId = ids[ids.length - 1];
                 const lastVal = 100 - adjusted;
                 document.getElementById('alloc-' + lastId).value = lastVal;
-                document.getElementById('val-' + lastId).textContent = lastVal;
+                document.getElementById('input-' + lastId).value = lastVal;
                 
                 isAdjusting = false;
                 updateAlloc();
@@ -1588,24 +1631,19 @@
             const currentAnnualFamilyExpense = family * 12;
             const futureAnnualFamilyExpense = currentAnnualFamilyExpense * Math.pow(1 + inflationRate, yearsToRetirement);
             
-            // Calculate required corpus using monthly withdrawal simulation
-            // We need to find the corpus that will be depleted to zero after all withdrawals
-            // Work backwards: simulate withdrawals with growth
-            let requiredCorpus = 0;
+            // Calculate required corpus at retirement using reverse simulation
+            // Target: Keep 3 months of final year expenses as safety buffer
+            const finalYearExpense = futureAnnualFamilyExpense * Math.pow(1 + inflationRate, retirementYears - 1);
+            const targetFinalBalance = finalYearExpense / 4; // 3 months buffer
             
-            // Simulate each year of retirement
+            let requiredCorpus = targetFinalBalance;
+            
+            // Work backwards from life expectancy to retirement
+            // Year 0 = first retirement year, Year (retirementYears-1) = last year
             for (let y = retirementYears - 1; y >= 0; y--) {
-                // Annual withdrawal for this year (inflation adjusted from retirement start)
-                const annualWithdrawal = futureAnnualFamilyExpense * Math.pow(1 + inflationRate, y);
-                const monthlyWithdrawal = annualWithdrawal / 12;
-                
-                // Add this year's withdrawals with monthly compounding
-                // Formula: PV of annuity for 12 months
-                const monthlyRate = portfolioReturn / 12;
-                const pvOfYearWithdrawals = monthlyWithdrawal * ((1 - Math.pow(1 + monthlyRate, -12)) / monthlyRate);
-                
-                // Discount back from end of year y to beginning of retirement
-                requiredCorpus += pvOfYearWithdrawals / Math.pow(1 + portfolioReturn, y);
+                const yearWithdrawal = futureAnnualFamilyExpense * Math.pow(1 + inflationRate, y);
+                // Reverse: (balance_after + withdrawal) / (1 + growth) = balance_before
+                requiredCorpus = (requiredCorpus + yearWithdrawal) / (1 + portfolioReturn);
             }
             
             const retirementCorpus = requiredCorpus;
@@ -1737,19 +1775,16 @@
             const futureAnnualFamilyExpense = currentAnnualFamilyExpense * Math.pow(1 + inflationRate, yearsToRetirement);
             const retirementYears = lifeExpectancy - retireAge;
             
-            // Calculate required corpus using monthly withdrawal simulation
-            let retirementAmount = 0;
+            // Calculate required corpus at retirement using reverse simulation
+            // Target: 3 months of final year expenses as safety buffer
+            const finalYearExpense = futureAnnualFamilyExpense * Math.pow(1 + inflationRate, retirementYears - 1);
+            const targetFinalBalance = finalYearExpense / 4;
+            
+            let retirementAmount = targetFinalBalance;
             
             for (let y = retirementYears - 1; y >= 0; y--) {
-                const annualWithdrawal = futureAnnualFamilyExpense * Math.pow(1 + inflationRate, y);
-                const monthlyWithdrawal = annualWithdrawal / 12;
-                
-                // PV of monthly withdrawals for this year
-                const monthlyRate = portfolioReturn / 12;
-                const pvOfYearWithdrawals = monthlyWithdrawal * ((1 - Math.pow(1 + monthlyRate, -12)) / monthlyRate);
-                
-                // Discount back to beginning of retirement
-                retirementAmount += pvOfYearWithdrawals / Math.pow(1 + portfolioReturn, y);
+                const yearWithdrawal = futureAnnualFamilyExpense * Math.pow(1 + inflationRate, y);
+                retirementAmount = (retirementAmount + yearWithdrawal) / (1 + portfolioReturn);
             }
             
             const goals = [];
@@ -1766,14 +1801,34 @@
             // Goal 3: Retirement (auto-calculated)
             goals.push({ id: 3, years: yearsToRetirement, amount: retirementAmount });
 
-            // Calculate goal feasibility using correct compound interest with monthly contributions
+            // Calculate goal feasibility
             let achievable = 0;
             goals.forEach(g => {
                 if (g.years > 0) {
-                    // FV = PV(1+r)^n + PMT × [((1+r)^n - 1) / r]
-                    const fv = onetimeInvest * Math.pow(1 + portfolioReturn, g.years) + 
-                               monthlyInvest * 12 * ((Math.pow(1 + portfolioReturn, g.years) - 1) / portfolioReturn);
-                    const possible = fv >= g.amount;
+                    let possible = false;
+                    
+                    if (g.id === 3) {
+                        // Special check for retirement goal: simulate through life expectancy
+                        // Accumulate wealth at retirement
+                        const wealthAtRetirement = onetimeInvest * Math.pow(1 + portfolioReturn, g.years) + 
+                                                   monthlyInvest * 12 * ((Math.pow(1 + portfolioReturn, g.years) - 1) / portfolioReturn);
+                        
+                        // Simulate withdrawals through retirement years
+                        let balance = wealthAtRetirement;
+                        for (let y = 0; y <= retirementYears; y++) {
+                            const yearWithdrawal = futureAnnualFamilyExpense * Math.pow(1 + inflationRate, y);
+                            balance = balance * (1 + portfolioReturn) - yearWithdrawal;
+                        }
+                        
+                        // Goal is possible if balance is positive at life expectancy
+                        possible = balance > 0;
+                    } else {
+                        // For Goals 1 & 2: check if accumulated wealth >= goal amount
+                        const fv = onetimeInvest * Math.pow(1 + portfolioReturn, g.years) + 
+                                   monthlyInvest * 12 * ((Math.pow(1 + portfolioReturn, g.years) - 1) / portfolioReturn);
+                        possible = fv >= g.amount;
+                    }
+                    
                     achievable += possible ? 1 : 0;
                     
                     const statusEl = document.getElementById(`status-${g.id}`);
@@ -1969,6 +2024,9 @@
                 return;
             } else if (input.type === 'range') {
                 input.addEventListener('input', updateAlloc);
+            } else if (input.type === 'number' && input.id && input.id.startsWith('input-')) {
+                // Allocation input boxes - already have oninput handler
+                return;
             } else if (input.type === 'number') {
                 input.addEventListener('input', updateSummary);
             }
