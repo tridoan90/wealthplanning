@@ -499,21 +499,21 @@
                                         <span class="en">Gold %</span>
                                         <span class="vi">Vàng %</span>
                                     </label>
-                                    <input type="number" id="gold-pct" value="30" min="0" max="100" style="width: 100%; padding: 0.25rem; border: 1px solid var(--grey-light); border-radius: 4px;" oninput="updateSummary()">
+                                    <input type="number" id="gold-pct" value="40" min="0" max="100" style="width: 100%; padding: 0.25rem; border: 1px solid var(--grey-light); border-radius: 4px;" oninput="updateSummary()">
                                 </div>
                                 <div>
                                     <label style="font-size: 0.75rem; color: var(--grey);">
                                         <span class="en">Stocks %</span>
                                         <span class="vi">Cổ phiếu %</span>
                                     </label>
-                                    <input type="number" id="stocks-pct" value="40" min="0" max="100" style="width: 100%; padding: 0.25rem; border: 1px solid var(--grey-light); border-radius: 4px;" oninput="updateSummary()">
+                                    <input type="number" id="stocks-pct" value="60" min="0" max="100" style="width: 100%; padding: 0.25rem; border: 1px solid var(--grey-light); border-radius: 4px;" oninput="updateSummary()">
                                 </div>
                                 <div>
                                     <label style="font-size: 0.75rem; color: var(--grey);">
                                         <span class="en">Bonds %</span>
                                         <span class="vi">Trái phiếu %</span>
                                     </label>
-                                    <input type="number" id="bonds-pct" value="30" min="0" max="100" style="width: 100%; padding: 0.25rem; border: 1px solid var(--grey-light); border-radius: 4px;" oninput="updateSummary()">
+                                    <input type="number" id="bonds-pct" value="0" min="0" max="100" style="width: 100%; padding: 0.25rem; border: 1px solid var(--grey-light); border-radius: 4px;" oninput="updateSummary()">
                                 </div>
                                 <div style="display: flex; align-items: end;">
                                     <span style="font-size: 0.75rem; color: var(--grey);" id="other-investments-total">Total: 100%</span>
@@ -820,8 +820,8 @@
                         </span>
                         <span class="allocation-yield">5-6% p.a.</span>
                     </div>
-                    <input type="range" class="allocation-slider" id="alloc-liquidity" min="0" max="100" value="20" oninput="updateAlloc()">
-                    <div class="allocation-value"><span id="val-liquidity">20</span>%</div>
+                    <input type="range" class="allocation-slider" id="alloc-liquidity" min="0" max="100" value="10" oninput="updateAlloc()">
+                    <div class="allocation-value"><span id="val-liquidity">10</span>%</div>
                 </div>
 
                 <div class="allocation-item">
@@ -844,8 +844,8 @@
                         </span>
                         <span class="allocation-yield">10-18% p.a.</span>
                     </div>
-                    <input type="range" class="allocation-slider" id="alloc-growth" min="0" max="100" value="30" oninput="updateAlloc()">
-                    <div class="allocation-value"><span id="val-growth">30</span>%</div>
+                    <input type="range" class="allocation-slider" id="alloc-growth" min="0" max="100" value="35" oninput="updateAlloc()">
+                    <div class="allocation-value"><span id="val-growth">35</span>%</div>
                 </div>
 
                 <div class="allocation-item">
@@ -856,8 +856,8 @@
                         </span>
                         <span class="allocation-yield">10-18% p.a.</span>
                     </div>
-                    <input type="range" class="allocation-slider" id="alloc-balanced" min="0" max="100" value="30" oninput="updateAlloc()">
-                    <div class="allocation-value"><span id="val-balanced">30</span>%</div>
+                    <input type="range" class="allocation-slider" id="alloc-balanced" min="0" max="100" value="35" oninput="updateAlloc()">
+                    <div class="allocation-value"><span id="val-balanced">35</span>%</div>
                 </div>
 
                 <div class="allocation-item">
@@ -1280,27 +1280,28 @@
         };
 
         // Risk profiles with allocations in 10% increments targeting specific yields
-        // Updated for Vietnam market returns: HC: 8.0%, Balanced: 10%, Growth: 11.5%, Ambitious: 13%
+        // Updated for Vietnam market returns + increased riskier assets (+10% for balanced/growth/ambitious)
+        // Highly Conservative: 8.0%, Balanced: 11%, Growth: 12.4%, Ambitious: 13.8%
         const riskProfiles = {
             'highly-conservative': {
-                // Target: 8.0% (Actual: 7.85%)
+                // Target: 8.0% (Actual: 7.85%) - Unchanged
                 retail: { liquidity: 50, income: 30, growth: 0, balanced: 10, retirement: 10, protection: 0 },
                 professional: { liquidity: 40, income: 30, growth: 0, balanced: 10, retirement: 10, protection: 10, alternatives: 0, opportunistic: 0 }
             },
             'balanced': {
-                // Target: 10% (Actual: 10.10%)
-                retail: { liquidity: 30, income: 20, growth: 20, balanced: 20, retirement: 10, protection: 0 },
-                professional: { liquidity: 20, income: 20, growth: 20, balanced: 20, retirement: 10, protection: 0, alternatives: 10, opportunistic: 0 }
+                // Target: 11% (Actual: 10.95%) - Riskier assets 40%→50%
+                retail: { liquidity: 20, income: 20, growth: 25, balanced: 25, retirement: 10, protection: 0 },
+                professional: { liquidity: 10, income: 20, growth: 25, balanced: 25, retirement: 10, protection: 0, alternatives: 10, opportunistic: 0 }
             },
             'growth': {
-                // Target: 11.5% (Actual: 11.50%)
-                retail: { liquidity: 20, income: 10, growth: 30, balanced: 30, retirement: 10, protection: 0 },
-                professional: { liquidity: 10, income: 10, growth: 30, balanced: 20, retirement: 10, protection: 0, alternatives: 20, opportunistic: 0 }
+                // Target: 12.4% (Actual: 12.35%) - Riskier assets 60%→70%
+                retail: { liquidity: 10, income: 10, growth: 35, balanced: 35, retirement: 10, protection: 0 },
+                professional: { liquidity: 0, income: 10, growth: 35, balanced: 25, retirement: 10, protection: 0, alternatives: 20, opportunistic: 0 }
             },
             'ambitious': {
-                // Target: 13% (Actual: 13.05% with opportunistic for professional)
-                retail: { liquidity: 10, income: 0, growth: 40, balanced: 40, retirement: 10, protection: 0 },
-                professional: { liquidity: 0, income: 0, growth: 40, balanced: 30, retirement: 10, protection: 0, alternatives: 10, opportunistic: 10 }
+                // Target: 13.8% (Actual: 13.75%) - Riskier assets 80%→90%
+                retail: { liquidity: 0, income: 0, growth: 45, balanced: 45, retirement: 10, protection: 0 },
+                professional: { liquidity: 0, income: 0, growth: 40, balanced: 35, retirement: 10, protection: 0, alternatives: 10, opportunistic: 5 }
             }
         };
 
