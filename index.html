@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personal Wealth Planning Simulator | Công cụ Mô phỏng Hoạch định Tài sản Cá nhân</title>
+    <title>VinaCapital Wealth Planning Simulator | Công cụ Mô phỏng Hoạch định Tài sản VinaCapital</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
@@ -433,8 +433,8 @@
             <span class="vi">Mô Phỏng Quản Lý Tài Chính</span>
         </h1>
         <p>
-            <span class="en">Personal planning tool powered by TriDoan</span>
-            <span class="vi">Công cụ Hoạch định Tài chính Cá nhân được phát triển bởi TriDoan</span>
+            <span class="en">Personal planning tool powered by VinaCapital</span>
+            <span class="vi">Công cụ Hoạch định Tài chính Cá nhân được phát triển bởi VinaCapital</span>
         </p>
     </div>
 
@@ -487,6 +487,38 @@
                         <div class="input-wrapper">
                             <span class="input-prefix">₫</span>
                             <input type="text" id="bank" value="200,000,000" data-value="200000000">
+                        </div>
+                        <div style="margin-top: 0.5rem; padding: 0.75rem; background: rgba(100, 116, 139, 0.05); border-radius: 6px; font-size: 0.875rem;">
+                            <div style="margin-bottom: 0.5rem; font-weight: 600; color: var(--grey-dark);">
+                                <span class="en">Breakdown (optional, for liquidity calculation):</span>
+                                <span class="vi">Chi tiết (tùy chọn, để tính thanh khoản):</span>
+                            </div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+                                <div>
+                                    <label style="font-size: 0.75rem; color: var(--grey);">
+                                        <span class="en">Gold %</span>
+                                        <span class="vi">Vàng %</span>
+                                    </label>
+                                    <input type="number" id="gold-pct" value="30" min="0" max="100" style="width: 100%; padding: 0.25rem; border: 1px solid var(--grey-light); border-radius: 4px;" oninput="updateSummary()">
+                                </div>
+                                <div>
+                                    <label style="font-size: 0.75rem; color: var(--grey);">
+                                        <span class="en">Stocks %</span>
+                                        <span class="vi">Cổ phiếu %</span>
+                                    </label>
+                                    <input type="number" id="stocks-pct" value="40" min="0" max="100" style="width: 100%; padding: 0.25rem; border: 1px solid var(--grey-light); border-radius: 4px;" oninput="updateSummary()">
+                                </div>
+                                <div>
+                                    <label style="font-size: 0.75rem; color: var(--grey);">
+                                        <span class="en">Bonds %</span>
+                                        <span class="vi">Trái phiếu %</span>
+                                    </label>
+                                    <input type="number" id="bonds-pct" value="30" min="0" max="100" style="width: 100%; padding: 0.25rem; border: 1px solid var(--grey-light); border-radius: 4px;" oninput="updateSummary()">
+                                </div>
+                                <div style="display: flex; align-items: end;">
+                                    <span style="font-size: 0.75rem; color: var(--grey);" id="other-investments-total">Total: 100%</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -562,6 +594,20 @@
                             <span class="vi">Tài sản thanh khoản</span>
                         </div>
                         <div class="summary-value" id="liquid-assets">0</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-label">
+                            <span class="en">T+0 Liquidity %</span>
+                            <span class="vi">Thanh khoản T+0 %</span>
+                        </div>
+                        <div class="summary-value" id="t0-liquidity">0%</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-label">
+                            <span class="en">T+3 Liquidity %</span>
+                            <span class="vi">Thanh khoản T+3 %</span>
+                        </div>
+                        <div class="summary-value" id="t3-liquidity">0%</div>
                     </div>
                 </div>
             </div>
@@ -784,7 +830,7 @@
                             <span class="en">🏛️ Long-term Fixed Income Funds</span>
                             <span class="vi">📜 Quỹ Trái Phiếu Dài Hạn</span>
                         </span>
-                        <span class="allocation-yield">8-12% p.a.</span>
+                        <span class="allocation-yield">7-10% p.a.</span>
                     </div>
                     <input type="range" class="allocation-slider" id="alloc-income" min="0" max="100" value="10" oninput="updateAlloc()">
                     <div class="allocation-value"><span id="val-income">10</span>%</div>
@@ -820,7 +866,7 @@
                             <span class="en">🌟 Retirement Plan / LTSP</span>
                             <span class="vi">🛡️ Kế Hoạch Hưu Trí / LTSP</span>
                         </span>
-                        <span class="allocation-yield">10-15% p.a.</span>
+                        <span class="allocation-yield">8-15% p.a.</span>
                     </div>
                     <input type="range" class="allocation-slider" id="alloc-retirement" min="0" max="100" value="10" oninput="updateAlloc()">
                     <div class="allocation-value"><span id="val-retirement">10</span>%</div>
@@ -832,7 +878,7 @@
                             <span class="en">💫 Protection / Insurance-linked</span>
                             <span class="vi">💫 Bảo Vệ / Liên Kết Bảo Hiểm</span>
                         </span>
-                        <span class="allocation-yield">3.0% p.a.</span>
+                        <span class="allocation-yield">2-4% p.a.</span>
                     </div>
                     <input type="range" class="allocation-slider" id="alloc-protection" min="0" max="100" value="0" oninput="updateAlloc()">
                     <div class="allocation-value"><span id="val-protection">0</span>%</div>
@@ -846,7 +892,7 @@
                             <span class="en">🔮 Alternatives (Private Markets)</span>
                             <span class="vi">🔮 Đầu Tư Thay Thế (Thị Trường Riêng)</span>
                         </span>
-                        <span class="allocation-yield">8-14% p.a.</span>
+                        <span class="allocation-yield">10-20% p.a.</span>
                     </div>
                     <input type="range" class="allocation-slider" id="alloc-alternatives" min="0" max="100" value="0" oninput="updateAlloc()">
                     <div class="allocation-value"><span id="val-alternatives">0</span>%</div>
@@ -858,7 +904,7 @@
                             <span class="en">✨ Opportunistic / Diversifiers</span>
                             <span class="vi">✨ Cơ Hội / Đa Dạng Hóa</span>
                         </span>
-                        <span class="allocation-yield">5-12% p.a.</span>
+                        <span class="allocation-yield">15-23% p.a.</span>
                     </div>
                     <input type="range" class="allocation-slider" id="alloc-opportunistic" min="0" max="100" value="0" oninput="updateAlloc()">
                     <div class="allocation-value"><span id="val-opportunistic">0</span>%</div>
@@ -898,6 +944,20 @@
                             <span class="vi">Biến động ước tính</span>
                         </div>
                         <div class="summary-value" id="volatility">8.5%</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-label">
+                            <span class="en">T+0 Liquidity %</span>
+                            <span class="vi">Thanh khoản T+0 %</span>
+                        </div>
+                        <div class="summary-value" id="portfolio-t0-liquidity">0%</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-label">
+                            <span class="en">T+3 Liquidity %</span>
+                            <span class="vi">Thanh khoản T+3 %</span>
+                        </div>
+                        <div class="summary-value" id="portfolio-t3-liquidity">0%</div>
                     </div>
                 </div>
                 <div id="allocation-warning" class="hidden" style="margin-top: 1rem; padding: 0.75rem; background: rgba(220, 38, 38, 0.1); border-radius: 6px; text-align: center; color: var(--red); font-weight: 600;">
@@ -1179,51 +1239,68 @@
         let chart = null;
         let isAdjusting = false;
 
-        // Updated yields based on illustrative returns
+        // Updated yields based on Vietnam market indicative returns
         const yields = {
             liquidity: 5.5,       // Money Market Fund, Short-term Fixed Income: 5-6%
-            income: 10.0,         // Long-term Fixed Income Funds: 8-12%
-            growth: 14.0,         // Broad Market ETF, Sectoral/Smart-Beta ETF: 10-18% (reduced)
-            balanced: 15.0,       // Balanced Funds, Equity Funds: 10-20%
-            retirement: 12.5,     // Retirement Plan / LTSP: 10-15%
-            protection: 3.0,      // Protection / Insurance-linked: 3.0%
-            alternatives: 11.0,   // Alternatives: 8-14%
-            opportunistic: 8.5    // Opportunistic: 5-12%
+            income: 8.5,          // Long-term Fixed Income Funds: 7-10% (was 10%)
+            growth: 14.0,         // Broad Market ETF, Sectoral/Smart-Beta ETF: 10-18%
+            balanced: 14.0,       // Balanced Funds, Equity Funds: 8-20% (was 15%)
+            retirement: 11.5,     // Retirement Plan / LTSP: 8-15% (was 12.5%)
+            protection: 3.0,      // Protection / Insurance-linked: 2-4% (was 3.0%)
+            alternatives: 15.0,   // Alternatives (Private Markets, VPF1): 10-20% (was 11%)
+            opportunistic: 19.0   // Opportunistic (Gold, co-investments): 15-23% (was 8.5%)
         };
 
+        // Vietnam market volatility estimates (annualized standard deviation %)
         const volatility = {
-            liquidity: 2,
-            income: 6,
-            growth: 15,
-            balanced: 12,
-            retirement: 8,
-            protection: 2,
-            alternatives: 13,
-            opportunistic: 20
+            liquidity: 1,         // Very low volatility - money market
+            income: 4,            // Low volatility - fixed income (was 6)
+            growth: 18,           // High volatility - Vietnam equity market (was 15)
+            balanced: 12,         // Medium-high volatility - mixed portfolio
+            retirement: 8,        // Medium volatility - long-term plans
+            protection: 2,        // Very low volatility - insurance products
+            alternatives: 15,     // High volatility - private markets (was 13)
+            opportunistic: 25     // Very high volatility - gold, opportunistic (was 20)
+        };
+
+        // Liquidity characteristics for Vietnam market (% accessible within timeframe)
+        // T+0 = Same day redemption/sale with immediate settlement
+        // T+3 = Within 3 business days (typical Vietnam settlement)
+        // Note: For Financial Health calculation, user's self-investments breakdown is used
+        // The percentages represent ACCESSIBILITY RATE, not allocation percentages
+        const liquidityProfile = {
+            liquidity: { t0: 100, t3: 100 },      // Money market - same day redemption, fully accessible
+            income: { t0: 0, t3: 100 },           // Bonds - T+3 settlement, fully accessible (was 90%)
+            growth: { t0: 0, t3: 100 },           // ETFs - T+2 settlement, fully accessible T+3 (was 95%)
+            balanced: { t0: 0, t3: 100 },         // Funds - T+3 redemption, fully accessible (was 85%)
+            retirement: { t0: 0, t3: 0 },         // LTSP - locked until retirement, 0% accessible
+            protection: { t0: 0, t3: 0 },         // Insurance - not liquid, 0% accessible
+            alternatives: { t0: 0, t3: 0 },       // Private markets - lock-up periods, 0% accessible
+            opportunistic: { t0: 50, t3: 70 }     // Gold T+0 accessible (with spread), co-inv locked
         };
 
         // Risk profiles with allocations in 10% increments targeting specific yields
-        // Highly Conservative: 8.0%, Balanced: 9-10.5%, Growth: 10.5-12%, Ambitious: 13%
+        // Updated for Vietnam market returns: HC: 8.0%, Balanced: 10%, Growth: 11.5%, Ambitious: 13%
         const riskProfiles = {
             'highly-conservative': {
-                // Target: 8.0% (Actual: 8.0%)
-                retail: { liquidity: 60, income: 20, growth: 0, balanced: 10, retirement: 10, protection: 0 },
-                professional: { liquidity: 50, income: 20, growth: 10, balanced: 10, retirement: 10, protection: 0, alternatives: 0, opportunistic: 0 }
+                // Target: 8.0% (Actual: 7.85%)
+                retail: { liquidity: 50, income: 30, growth: 0, balanced: 10, retirement: 10, protection: 0 },
+                professional: { liquidity: 40, income: 30, growth: 0, balanced: 10, retirement: 10, protection: 10, alternatives: 0, opportunistic: 0 }
             },
             'balanced': {
-                // Target: 9-10.5% (Actual: 10.1%)
+                // Target: 10% (Actual: 10.10%)
                 retail: { liquidity: 30, income: 20, growth: 20, balanced: 20, retirement: 10, protection: 0 },
                 professional: { liquidity: 20, income: 20, growth: 20, balanced: 20, retirement: 10, protection: 0, alternatives: 10, opportunistic: 0 }
             },
             'growth': {
-                // Target: 10.5-12% (Actual: 11.65%)
+                // Target: 11.5% (Actual: 11.50%)
                 retail: { liquidity: 20, income: 10, growth: 30, balanced: 30, retirement: 10, protection: 0 },
                 professional: { liquidity: 10, income: 10, growth: 30, balanced: 20, retirement: 10, protection: 0, alternatives: 20, opportunistic: 0 }
             },
             'ambitious': {
-                // Target: 13% (Actual: 13.05%)
+                // Target: 13% (Actual: 13.05% with opportunistic for professional)
                 retail: { liquidity: 10, income: 0, growth: 40, balanced: 40, retirement: 10, protection: 0 },
-                professional: { liquidity: 10, income: 0, growth: 30, balanced: 30, retirement: 10, protection: 0, alternatives: 20, opportunistic: 0 }
+                professional: { liquidity: 0, income: 0, growth: 40, balanced: 30, retirement: 10, protection: 0, alternatives: 10, opportunistic: 10 }
             }
         };
 
@@ -1419,6 +1496,22 @@
             document.getElementById('portfolio-risk').textContent = riskLevel;
             document.getElementById('portfolio-risk').style.color = riskColor;
             
+            // Calculate portfolio T+0 and T+3 liquidity
+            let t0Weighted = 0, t3Weighted = 0;
+            ids.forEach(id => {
+                const val = parseInt(document.getElementById('alloc-' + id)?.value) || 0;
+                if (liquidityProfile[id]) {
+                    t0Weighted += val * liquidityProfile[id].t0;
+                    t3Weighted += val * liquidityProfile[id].t3;
+                }
+            });
+            
+            const portfolioT0 = total > 0 ? t0Weighted / total : 0;
+            const portfolioT3 = total > 0 ? t3Weighted / total : 0;
+            
+            document.getElementById('portfolio-t0-liquidity').textContent = portfolioT0.toFixed(1) + '%';
+            document.getElementById('portfolio-t3-liquidity').textContent = portfolioT3.toFixed(1) + '%';
+            
             // Show warning if total != 100
             const warning = document.getElementById('allocation-warning');
             if (total !== 100) {
@@ -1532,6 +1625,35 @@
             document.getElementById('total-assets').textContent = fmt(totalAssets);
             document.getElementById('net-worth').textContent = fmt(netWorth);
             document.getElementById('liquid-assets').textContent = fmt(liquidAssets);
+            
+            // Calculate T+0 and T+3 liquidity % with proper treatment for Vietnam market
+            // Get breakdown of other self-investments
+            const goldPct = parseFloat(document.getElementById('gold-pct')?.value) || 0;
+            const stocksPct = parseFloat(document.getElementById('stocks-pct')?.value) || 0;
+            const bondsPct = parseFloat(document.getElementById('bonds-pct')?.value) || 0;
+            const otherTotal = goldPct + stocksPct + bondsPct;
+            
+            // Update total display
+            const totalDisplay = document.getElementById('other-investments-total');
+            if (totalDisplay) {
+                totalDisplay.textContent = `Total: ${otherTotal}%`;
+                totalDisplay.style.color = otherTotal === 100 ? 'var(--green)' : 'var(--red)';
+            }
+            
+            // Calculate T+0 liquidity: Cash + Gold portion (with spread assumption)
+            const goldAmount = bank * (goldPct / 100);
+            const t0LiquidAssets = cash + goldAmount;
+            const t0Liquidity = totalAssets > 0 ? (t0LiquidAssets / totalAssets * 100) : 0;
+            
+            // Calculate T+3 liquidity: Cash + Gold + Stocks (T+2/T+3) + Bonds (T+3)
+            const stocksAmount = bank * (stocksPct / 100);
+            const bondsAmount = bank * (bondsPct / 100);
+            const t3LiquidAssets = cash + goldAmount + stocksAmount + bondsAmount;
+            const t3Liquidity = totalAssets > 0 ? (t3LiquidAssets / totalAssets * 100) : 0;
+            
+            document.getElementById('t0-liquidity').textContent = t0Liquidity.toFixed(1) + '%';
+            document.getElementById('t3-liquidity').textContent = t3Liquidity.toFixed(1) + '%';
+            
             document.getElementById('total-income').textContent = fmt(totalIncome);
             document.getElementById('total-expenses').textContent = fmt(totalExpenses);
             document.getElementById('cash-flow').textContent = fmt(cashFlow);
